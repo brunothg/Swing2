@@ -19,15 +19,15 @@ public class TestJPanel extends JPanel implements KeyListener {
 		addKeyListener(this);
 	}
 
-	int size = 20;
+	int zoom = 20;
 
 	@Override
 	protected void paintComponent(Graphics g) {
 		g.clearRect(0, 0, getWidth(), getHeight());
 
-		BGraphics2D.drawHexagon(g, Color.RED, size + 10, size + 10, size, 0);
-		BGraphics2D.fillHexagon(g, Color.RED, size * 3 + 10 * 2, size + 10,
-				size, 0);
+		BGraphics2D.drawHexagon(g, Color.RED, zoom + 10, zoom + 10, zoom, 0);
+		BGraphics2D.fillHexagon(g, Color.RED, zoom * 3 + 10 * 2, zoom + 10,
+				zoom, 0);
 	}
 
 	@Override
@@ -38,11 +38,13 @@ public class TestJPanel extends JPanel implements KeyListener {
 	public void keyPressed(KeyEvent e) {
 		switch (e.getKeyCode()) {
 		case KeyEvent.VK_UP:
-			size++;
+		case KeyEvent.VK_RIGHT:
+			zoom++;
 			repaint();
 			break;
 		case KeyEvent.VK_DOWN:
-			size--;
+		case KeyEvent.VK_LEFT:
+			zoom--;
 			repaint();
 			break;
 		}
