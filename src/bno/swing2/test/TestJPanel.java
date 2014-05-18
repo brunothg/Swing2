@@ -1,6 +1,6 @@
 package bno.swing2.test;
 
-import java.awt.Color;
+import java.awt.BorderLayout;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -8,6 +8,7 @@ import java.awt.event.KeyListener;
 import javax.swing.JPanel;
 
 import bno.swing2.awt.BGraphics2D;
+import bno.swing2.awt.hexcolorchooser.BHexColorChooserWidget;
 
 public class TestJPanel extends JPanel implements KeyListener {
 
@@ -17,6 +18,8 @@ public class TestJPanel extends JPanel implements KeyListener {
 		super();
 		setFocusable(true);
 		addKeyListener(this);
+		setLayout(new BorderLayout());
+		add(new BHexColorChooserWidget(), BorderLayout.CENTER);
 	}
 
 	int zoom = 20;
@@ -25,9 +28,10 @@ public class TestJPanel extends JPanel implements KeyListener {
 	protected void paintComponent(Graphics g) {
 		g.clearRect(0, 0, getWidth(), getHeight());
 
-		BGraphics2D.drawHexagon(g, Color.RED, zoom + 10, zoom + 10, zoom, 0);
-		BGraphics2D.fillHexagon(g, Color.RED, zoom * 3 + 10 * 2, zoom + 10,
-				zoom, 0);
+		BGraphics2D.drawHexagon(g, getForeground(), getWidth() / 2 - zoom / 2,
+				getHeight() / 2, zoom, 0);
+		BGraphics2D.fillHexagon(g, getForeground(), getWidth() / 2 + zoom / 2,
+				getHeight() / 2, zoom, 0);
 	}
 
 	@Override
