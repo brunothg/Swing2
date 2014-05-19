@@ -1,6 +1,7 @@
 package bno.swing2.test;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -9,6 +10,7 @@ import javax.swing.JPanel;
 
 import bno.swing2.awt.BGraphics2D;
 import bno.swing2.awt.hexcolorchooser.BHexColorChooserWidget;
+import bno.swing2.awt.hexcolorchooser.ColorChangeListener;
 
 public class TestJPanel extends JPanel implements KeyListener {
 
@@ -19,7 +21,18 @@ public class TestJPanel extends JPanel implements KeyListener {
 		setFocusable(true);
 		addKeyListener(this);
 		setLayout(new BorderLayout());
-		add(new BHexColorChooserWidget(), BorderLayout.CENTER);
+
+		BHexColorChooserWidget comp = new BHexColorChooserWidget();
+		comp.addColorChangeListener(new ColorChangeListener() {
+
+			@Override
+			public void selectedColorChanged(Color newColor, Color oldColor) {
+				System.out.printf("Color changed %s -> %s%n",
+						oldColor.toString(), newColor.toString());
+			}
+		});
+
+		add(comp, BorderLayout.CENTER);
 	}
 
 	int zoom = 20;
