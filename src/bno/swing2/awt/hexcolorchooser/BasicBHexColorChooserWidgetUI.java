@@ -222,9 +222,9 @@ public class BasicBHexColorChooserWidgetUI extends BHexColorChooserWidgetUI {
 		return new Color(r, g, b);
 	}
 
-	private Color getColorAtLocation(int x, int y,
+	private Color getColorAtLocation(int x, int y, Color def,
 			final BHexColorChooserWidget c) {
-		Color ret = c.getSelectedColor();
+		Color ret = def;
 
 		BufferedImage img = new BufferedImage(c.getWidth(), c.getHeight(),
 				BufferedImage.TYPE_INT_RGB);
@@ -246,7 +246,8 @@ public class BasicBHexColorChooserWidgetUI extends BHexColorChooserWidgetUI {
 
 			@Override
 			public void mouseMoved(MouseEvent e) {
-				Color mouseOver = getColorAtLocation(e.getX(), e.getY(), c);
+				Color mouseOver = getColorAtLocation(e.getX(), e.getY(),
+						c.getMouseOverColor(), c);
 
 				if (!BasicBHexColorChooserWidgetUI.equals(
 						c.getMouseOverColor(), mouseOver)) {
@@ -270,7 +271,8 @@ public class BasicBHexColorChooserWidgetUI extends BHexColorChooserWidgetUI {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Color clicked = getColorAtLocation(e.getX(), e.getY(), c);
+				Color clicked = getColorAtLocation(e.getX(), e.getY(),
+						c.getSelectedColor(), c);
 
 				if (!BasicBHexColorChooserWidgetUI.equals(c.getSelectedColor(),
 						clicked)) {
