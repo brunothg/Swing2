@@ -45,7 +45,11 @@ public class BasicBGradientColorChooserWidgetUI extends
 	}
 
 	private Dimension getPrefferedSize(BGradientColorChooserWidget c) {
-		Dimension ret = new Dimension(100, c.getMaximumSubdivisions() * 5);
+		Dimension ret = new Dimension(
+				(c.getOrientation() == BGradientColorChooserWidget.Y_AXIS) ? 100
+						: (c.getMaximumSubdivisions() * 5),
+				(c.getOrientation() == BGradientColorChooserWidget.Y_AXIS) ? (c
+						.getMaximumSubdivisions() * 5) : 100);
 
 		return ret;
 	}
@@ -56,7 +60,11 @@ public class BasicBGradientColorChooserWidgetUI extends
 	}
 
 	private Dimension getMinimumSize(BGradientColorChooserWidget c) {
-		Dimension ret = new Dimension(100, c.getMaximumSubdivisions());
+		Dimension ret = new Dimension(
+				(c.getOrientation() == BGradientColorChooserWidget.Y_AXIS) ? 100
+						: (c.getMaximumSubdivisions()),
+				(c.getOrientation() == BGradientColorChooserWidget.Y_AXIS) ? (c
+						.getMaximumSubdivisions()) : 100);
 
 		return ret;
 	}

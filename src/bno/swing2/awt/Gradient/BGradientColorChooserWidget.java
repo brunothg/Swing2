@@ -58,6 +58,7 @@ public class BGradientColorChooserWidget extends JComponent {
 
 	public void setColor(final Color c) {
 		this.color = c;
+		repaint();
 	}
 
 	public int getOrientation() {
@@ -66,6 +67,8 @@ public class BGradientColorChooserWidget extends JComponent {
 
 	public void setOrientation(int orientation) {
 		this.orientation = orientation;
+		revalidate();
+		repaint();
 	}
 
 	public int getMaximumSubdivisions() {
@@ -78,6 +81,9 @@ public class BGradientColorChooserWidget extends JComponent {
 		}
 
 		this.max_sub = subs;
+
+		revalidate();
+		repaint();
 	}
 
 	public Color getSelectedColor() {

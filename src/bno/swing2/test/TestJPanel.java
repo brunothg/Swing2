@@ -31,6 +31,7 @@ public class TestJPanel extends JPanel implements KeyListener {
 			public void selectedColorChanged(ColorChangeEvent ev) {
 				System.out.printf("Color changed %s -> %s%n", ev.getOldColor()
 						.toString(), ev.getNewColor().toString());
+				gradient.setColor(ev.getNewColor());
 			}
 
 			@Override
@@ -44,13 +45,14 @@ public class TestJPanel extends JPanel implements KeyListener {
 
 		add(comp, BorderLayout.CENTER);
 
-		BGradientColorChooserWidget gradient = new BGradientColorChooserWidget(
-				Color.GREEN, BGradientColorChooserWidget.Y_AXIS);
+		gradient = new BGradientColorChooserWidget(Color.GREEN,
+				BGradientColorChooserWidget.Y_AXIS);
 		add(gradient, BorderLayout.EAST);
 	}
 
 	int zoom = 300;
 	private BHexColorChooserWidget comp;
+	private BGradientColorChooserWidget gradient;
 
 	@Override
 	protected void paintComponent(Graphics g) {
