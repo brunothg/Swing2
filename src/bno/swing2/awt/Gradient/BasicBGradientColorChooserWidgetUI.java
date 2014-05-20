@@ -1,5 +1,6 @@
 package bno.swing2.awt.Gradient;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 
@@ -33,9 +34,104 @@ public class BasicBGradientColorChooserWidgetUI extends
 	}
 
 	private void paint(Graphics g, BGradientColorChooserWidget c) {
-		g.setColor(c.getColor());
-		g.fillRect(0, 0, c.getWidth(), c.getHeight());
-		// TODO
+
+		if (c.getOrientation() == BGradientColorChooserWidget.Y_AXIS) {
+			// Von Oben nach Unten
+			paintY(g, c);
+		} else {
+			// Von Links nach Rechts
+			paintX(g, c);
+		}
+
+	}
+
+	private void paintX(Graphics g, BGradientColorChooserWidget c) {
+		int elementHeight = Math.max(c.getWidth() / c.getMaximumSubdivisions(),
+				1);
+
+		int anzElemente = c.getWidth() / elementHeight;
+
+		int midHeight = c.getWidth() - ((anzElemente - 1) * elementHeight);
+
+		int midPos = (int) (Math.round(anzElemente / 2.0) - 1);
+
+		Color col = c.getColor();
+
+		int aktHeight = 0;
+		for (int x = 0; x < anzElemente; x++) {
+			g.setColor(getColorAtPosition(x, anzElemente, midPos, anzElemente,
+					col));
+
+			if (x == midPos) {
+				g.fillRect(aktHeight, 0, midHeight, c.getHeight());
+				aktHeight += midHeight;
+			} else {
+				g.fillRect(aktHeight, 0, elementHeight, c.getHeight());
+				aktHeight += elementHeight;
+			}
+		}
+	}
+
+	private void paintY(Graphics g, BGradientColorChooserWidget c) {
+		int elementHeight = Math.max(
+				c.getHeight() / c.getMaximumSubdivisions(), 1);
+
+		int anzElemente = c.getHeight() / elementHeight;
+
+		int midHeight = c.getHeight() - ((anzElemente - 1) * elementHeight);
+
+		int midPos = (int) (Math.round(anzElemente / 2.0) - 1);
+
+		Color col = c.getColor();
+
+		int aktHeight = 0;
+		for (int y = 0; y < anzElemente; y++) {
+			g.setColor(getColorAtPosition(y, anzElemente, midPos, anzElemente,
+					col));
+
+			if (y == midPos) {
+				g.fillRect(0, aktHeight, c.getWidth(), midHeight);
+				aktHeight += midHeight;
+			} else {
+				g.fillRect(0, aktHeight, c.getWidth(), elementHeight);
+				aktHeight += elementHeight;
+			}
+		}
+	}
+
+	private Color getColorAtPosition(int y, int anzElemente, int midPos,
+			int ende, final Color color) {
+		Color ret = color;
+		if (midPos == y) {
+			return ret;
+		}
+
+		int posDif;
+
+		int[] dif = new int[3];
+
+		if (midPos > y) {
+			posDif = Math.abs(y - midPos);
+			dif[0] = -(int) Math.ceil(color.getRed() / (double) (midPos));
+			dif[1] = -(int) Math.ceil(color.getGreen() / (double) (midPos));
+			dif[2] = -(int) Math.ceil(color.getBlue() / (double) (midPos));
+		} else {
+			int midPosEnde = Math.abs(ende - midPos) - 1;
+			posDif = Math.abs(y - midPosEnde);
+			dif[0] = (int) Math.ceil((255 - color.getRed())
+					/ (double) (midPosEnde));
+			dif[1] = (int) Math.ceil((255 - color.getGreen())
+					/ (double) (midPosEnde));
+			dif[2] = (int) Math.ceil((255 - color.getBlue())
+					/ (double) (midPosEnde));
+		}
+
+		ret = new Color(Math.min(Math.max(ret.getRed() + dif[0] * posDif, 0),
+				255), Math.min(Math.max(ret.getGreen() + dif[1] * posDif, 0),
+				255), Math.min(Math.max(ret.getBlue() + dif[2] * posDif, 0),
+				255));
+
+		return ret;
 	}
 
 	@Override

@@ -58,6 +58,7 @@ public class BGradientColorChooserWidget extends JComponent {
 
 	public void setColor(final Color c) {
 		this.color = c;
+
 		repaint();
 	}
 
@@ -67,6 +68,7 @@ public class BGradientColorChooserWidget extends JComponent {
 
 	public void setOrientation(int orientation) {
 		this.orientation = orientation;
+
 		revalidate();
 		repaint();
 	}

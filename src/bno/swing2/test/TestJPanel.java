@@ -17,6 +17,7 @@ import bno.swing2.awt.hexcolorchooser.BHexColorChooserWidget;
 public class TestJPanel extends JPanel implements KeyListener {
 
 	private static final long serialVersionUID = 6360279416330156160L;
+	private BGradientColorChooserWidget gradient2;
 
 	public TestJPanel() {
 		super();
@@ -32,6 +33,7 @@ public class TestJPanel extends JPanel implements KeyListener {
 				System.out.printf("Color changed %s -> %s%n", ev.getOldColor()
 						.toString(), ev.getNewColor().toString());
 				gradient.setColor(ev.getNewColor());
+				gradient2.setColor(ev.getNewColor());
 			}
 
 			@Override
@@ -48,6 +50,10 @@ public class TestJPanel extends JPanel implements KeyListener {
 		gradient = new BGradientColorChooserWidget(Color.GREEN,
 				BGradientColorChooserWidget.Y_AXIS);
 		add(gradient, BorderLayout.EAST);
+
+		gradient2 = new BGradientColorChooserWidget(Color.GREEN,
+				BGradientColorChooserWidget.X_AXIS);
+		add(gradient2, BorderLayout.SOUTH);
 	}
 
 	int zoom = 300;
