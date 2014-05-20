@@ -1,4 +1,4 @@
-package bno.swing2.awt.hexcolorchooser;
+package bno.swing2.awt;
 
 import java.util.EventListener;
 

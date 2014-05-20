@@ -5,6 +5,9 @@ import java.awt.Color;
 import javax.swing.JComponent;
 import javax.swing.UIManager;
 
+import bno.swing2.awt.ColorChangeEvent;
+import bno.swing2.awt.ColorChangeListener;
+
 public class BHexColorChooserWidget extends JComponent {
 
 	private static final long serialVersionUID = 2L;

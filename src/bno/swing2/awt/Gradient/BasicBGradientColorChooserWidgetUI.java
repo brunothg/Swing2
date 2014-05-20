@@ -29,13 +29,13 @@ public class BasicBGradientColorChooserWidgetUI extends
 
 	@Override
 	public void paint(Graphics g, JComponent c) {
-		super.paint(g, c);
 		paint(g, (BGradientColorChooserWidget) c);
 	}
 
 	private void paint(Graphics g, BGradientColorChooserWidget c) {
 		g.setColor(c.getColor());
 		g.fillRect(0, 0, c.getWidth(), c.getHeight());
+		// TODO
 	}
 
 	@Override

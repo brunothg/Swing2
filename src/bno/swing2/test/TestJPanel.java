@@ -9,10 +9,10 @@ import java.awt.event.KeyListener;
 import javax.swing.JPanel;
 
 import bno.swing2.awt.BGraphics2D;
+import bno.swing2.awt.ColorChangeEvent;
+import bno.swing2.awt.ColorChangeListener;
 import bno.swing2.awt.Gradient.BGradientColorChooserWidget;
 import bno.swing2.awt.hexcolorchooser.BHexColorChooserWidget;
-import bno.swing2.awt.hexcolorchooser.ColorChangeEvent;
-import bno.swing2.awt.hexcolorchooser.ColorChangeListener;
 
 public class TestJPanel extends JPanel implements KeyListener {
 
