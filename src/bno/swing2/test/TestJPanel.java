@@ -22,7 +22,7 @@ public class TestJPanel extends JPanel implements KeyListener {
 		addKeyListener(this);
 		setLayout(new BorderLayout());
 
-		BHexColorChooserWidget comp = new BHexColorChooserWidget();
+		comp = new BHexColorChooserWidget();
 		comp.addColorChangeListener(new ColorChangeListener() {
 
 			@Override
@@ -35,7 +35,8 @@ public class TestJPanel extends JPanel implements KeyListener {
 		add(comp, BorderLayout.CENTER);
 	}
 
-	int zoom = 20;
+	int zoom = 300;
+	private BHexColorChooserWidget comp;
 
 	@Override
 	protected void paintComponent(Graphics g) {
@@ -65,6 +66,9 @@ public class TestJPanel extends JPanel implements KeyListener {
 			repaint();
 			break;
 		}
+
+		comp.setSelectedColor(new Color((int) (Math.random() * 255),
+				(int) (Math.random() * 255), (int) (Math.random() * 255)));
 	}
 
 	@Override

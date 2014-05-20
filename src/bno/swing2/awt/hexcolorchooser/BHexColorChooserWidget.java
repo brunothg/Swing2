@@ -13,9 +13,11 @@ public class BHexColorChooserWidget extends JComponent {
 	public static final String SELECTED_COLOR_CHANGED_PROPERTY = "selectedColor";
 
 	protected Color selectedColor;
+	protected Color mouseOverColor;
 
 	private BHexColorChooserWidget(Color c) {
 		selectedColor = c;
+		mouseOverColor = null;
 		updateUI();
 	}
 
@@ -45,6 +47,15 @@ public class BHexColorChooserWidget extends JComponent {
 
 	public Color getSelectedColor() {
 		return selectedColor;
+	}
+
+	public void setSelectedColor(Color c) {
+		selectedColor = c;
+		repaint();
+	}
+
+	public Color getMouseOverColor() {
+		return mouseOverColor;
 	}
 
 	public synchronized void addColorChangeListener(ColorChangeListener listener) {
