@@ -1,6 +1,5 @@
 package bno.swing2.awt.Gradient;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 
@@ -35,8 +34,8 @@ public class BasicBGradientColorChooserWidgetUI extends
 	}
 
 	private void paint(Graphics g, BGradientColorChooserWidget c) {
-		g.setColor(Color.RED);
-		g.drawLine(0, 0, c.getWidth(), c.getHeight());
+		g.setColor(c.getColor());
+		g.fillRect(0, 0, c.getWidth(), c.getHeight());
 	}
 
 	@Override

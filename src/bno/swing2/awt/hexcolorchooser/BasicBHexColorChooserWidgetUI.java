@@ -310,15 +310,16 @@ public class BasicBHexColorChooserWidgetUI extends BHexColorChooserWidgetUI {
 
 	@Override
 	public Dimension getPreferredSize(JComponent c) {
-		Dimension ret = new Dimension(Integer.MAX_VALUE, Integer.MAX_VALUE);
+		int size = 250;
+		Dimension ret = new Dimension((int) (size * (Math.sqrt(3) / 2.0)), size);
 
 		return ret;
 	}
 
 	@Override
 	public Dimension getMinimumSize(JComponent c) {
-		Dimension ret = new Dimension(130, 130);
-
+		int size = 130;
+		Dimension ret = new Dimension((int) (size * (Math.sqrt(3) / 2.0)), size);
 		return ret;
 	}
 
