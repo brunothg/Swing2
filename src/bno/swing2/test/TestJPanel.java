@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 
 import bno.swing2.awt.BGraphics2D;
 import bno.swing2.awt.hexcolorchooser.BHexColorChooserWidget;
+import bno.swing2.awt.hexcolorchooser.ColorChangeEvent;
 import bno.swing2.awt.hexcolorchooser.ColorChangeListener;
 
 public class TestJPanel extends JPanel implements KeyListener {
@@ -26,9 +27,17 @@ public class TestJPanel extends JPanel implements KeyListener {
 		comp.addColorChangeListener(new ColorChangeListener() {
 
 			@Override
-			public void selectedColorChanged(Color newColor, Color oldColor) {
-				System.out.printf("Color changed %s -> %s%n",
-						oldColor.toString(), newColor.toString());
+			public void selectedColorChanged(ColorChangeEvent ev) {
+				System.out.printf("Color changed %s -> %s%n", ev.getOldColor()
+						.toString(), ev.getNewColor().toString());
+			}
+
+			@Override
+			public void mouseOverColorChanged(ColorChangeEvent ev) {
+				System.out.printf("Mouse over Color changed %s -> %s%n", (ev
+						.getOldColor() != null) ? ev.getOldColor().toString()
+						: "NULL", (ev.getNewColor() != null) ? ev.getNewColor()
+						.toString() : "NULL");
 			}
 		});
 

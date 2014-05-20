@@ -7,10 +7,11 @@ import javax.swing.UIManager;
 
 public class BHexColorChooserWidget extends JComponent {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2L;
 	private static final String uiClassID = "BHexColorChooserWidgetUI";
 
 	public static final String SELECTED_COLOR_CHANGED_PROPERTY = "selectedColor";
+	public static final String MOUSE_OVER_COLOR_CHANGED_PROPERTY = "mouseOverColor";
 
 	protected Color selectedColor;
 	protected Color mouseOverColor;
@@ -49,9 +50,11 @@ public class BHexColorChooserWidget extends JComponent {
 		return selectedColor;
 	}
 
-	public void setSelectedColor(Color c) {
+	public void setSelectedColor(final Color c) {
+		Color selectedColorT = selectedColor;
 		selectedColor = c;
-		repaint();
+
+		fireSelectedColorChange(selectedColorT, c);
 	}
 
 	public Color getMouseOverColor() {
@@ -62,9 +65,29 @@ public class BHexColorChooserWidget extends JComponent {
 		listenerList.add(ColorChangeListener.class, listener);
 	}
 
-	public void firePropertyChange(String name, Color oldValue, Color newValue) {
-		if (name.equals(SELECTED_COLOR_CHANGED_PROPERTY)) {
+	public void firePropertyChange(String propertyName, Color oldValue,
+			Color newValue) {
+		if (propertyName == null) {
+			return;
+		}
+
+		if (propertyName.equals(SELECTED_COLOR_CHANGED_PROPERTY)) {
 			fireSelectedColorChange(oldValue, newValue);
+		} else if (propertyName.equals(MOUSE_OVER_COLOR_CHANGED_PROPERTY)) {
+			fireMouseOverColorChange(oldValue, newValue);
+		}
+	}
+
+	private void fireMouseOverColorChange(Color oldValue, Color newValue) {
+		mouseOverColor = newValue;
+
+		ColorChangeListener[] listeners = listenerList
+				.getListeners(ColorChangeListener.class);
+
+		ColorChangeEvent event = new ColorChangeEvent(this, oldValue, newValue);
+
+		for (ColorChangeListener listener : listeners) {
+			listener.mouseOverColorChanged(event);
 		}
 	}
 
@@ -75,8 +98,10 @@ public class BHexColorChooserWidget extends JComponent {
 		ColorChangeListener[] listeners = listenerList
 				.getListeners(ColorChangeListener.class);
 
+		ColorChangeEvent event = new ColorChangeEvent(this, oldColor, newColor);
+
 		for (ColorChangeListener listener : listeners) {
-			listener.selectedColorChanged(newColor, oldColor);
+			listener.selectedColorChanged(event);
 		}
 	}
 }

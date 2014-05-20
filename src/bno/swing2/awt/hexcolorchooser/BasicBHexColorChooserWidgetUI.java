@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JComponent;
@@ -38,6 +39,7 @@ public class BasicBHexColorChooserWidgetUI extends BHexColorChooserWidgetUI {
 
 	Color preBackground;
 	MouseListener mL;
+	MouseMotionListener mmL;
 
 	public static ComponentUI createUI(JComponent c) {
 		return new BasicBHexColorChooserWidgetUI();
@@ -52,6 +54,7 @@ public class BasicBHexColorChooserWidgetUI extends BHexColorChooserWidgetUI {
 		c.setBackground(Color.BLACK);
 
 		c.addMouseListener(createMouseListener(c));
+		c.addMouseMotionListener(createMouseMotionListener(c));
 	}
 
 	public void uninstallUI(JComponent c) {
@@ -61,6 +64,7 @@ public class BasicBHexColorChooserWidgetUI extends BHexColorChooserWidgetUI {
 	private void uninstallUI(BHexColorChooserWidget c) {
 		c.setBackground(preBackground);
 		c.removeMouseListener(mL);
+		c.removeMouseMotionListener(mmL);
 	}
 
 	@Override
@@ -202,6 +206,13 @@ public class BasicBHexColorChooserWidgetUI extends BHexColorChooserWidgetUI {
 	}
 
 	static boolean equals(Color c1, Color c2) {
+		if (c1 == c2 && c2 == null) {
+			return true;
+		}
+
+		if (c1 == null || c2 == null) {
+			return false;
+		}
 
 		return c1.getRed() == c2.getRed() && c1.getGreen() == c2.getGreen()
 				&& c1.getBlue() == c2.getBlue();
@@ -227,6 +238,30 @@ public class BasicBHexColorChooserWidgetUI extends BHexColorChooserWidgetUI {
 		}
 
 		return ret;
+	}
+
+	private MouseMotionListener createMouseMotionListener(
+			final BHexColorChooserWidget c) {
+		mmL = new MouseMotionListener() {
+
+			@Override
+			public void mouseMoved(MouseEvent e) {
+				Color mouseOver = getColorAtLocation(e.getX(), e.getY(), c);
+
+				if (!BasicBHexColorChooserWidgetUI.equals(
+						c.getMouseOverColor(), mouseOver)) {
+					fireMouseOverColorChanged(c.getMouseOverColor(), mouseOver,
+							c);
+				}
+
+			}
+
+			@Override
+			public void mouseDragged(MouseEvent e) {
+			}
+		};
+
+		return mmL;
 	}
 
 	private MouseListener createMouseListener(final BHexColorChooserWidget c) {
@@ -257,6 +292,13 @@ public class BasicBHexColorChooserWidgetUI extends BHexColorChooserWidgetUI {
 
 			@Override
 			public void mouseExited(MouseEvent e) {
+				Color mouseOver = null;
+
+				if (!BasicBHexColorChooserWidgetUI.equals(
+						c.getMouseOverColor(), mouseOver)) {
+					fireMouseOverColorChanged(c.getMouseOverColor(), mouseOver,
+							c);
+				}
 			}
 
 		};
@@ -287,8 +329,23 @@ public class BasicBHexColorChooserWidgetUI extends BHexColorChooserWidgetUI {
 
 	private void fireSelectedColorChanged(Color selectedColor, Color clicked,
 			BHexColorChooserWidget c) {
+		if (c == null) {
+			return;
+		}
+
 		c.firePropertyChange(
 				BHexColorChooserWidget.SELECTED_COLOR_CHANGED_PROPERTY,
 				selectedColor, clicked);
+	}
+
+	private void fireMouseOverColorChanged(Color mouseOverColor,
+			Color newColor, BHexColorChooserWidget c) {
+		if (c == null) {
+			return;
+		}
+
+		c.firePropertyChange(
+				BHexColorChooserWidget.MOUSE_OVER_COLOR_CHANGED_PROPERTY,
+				mouseOverColor, newColor);
 	}
 }
