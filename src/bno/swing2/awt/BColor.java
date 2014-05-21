@@ -45,4 +45,13 @@ public class BColor extends Color {
 		return equalsRGB(c) && getAlpha() == c.getAlpha();
 	}
 
+	public String toHexString() {
+		return String.format("#%02X%02X%02X", getRed(), getGreen(), getBlue());
+	}
+
+	public String toRGBString() {
+		return String.format("r=%03d, g=%03d, b=%03d", getRed(), getGreen(),
+				getBlue());
+	}
+
 }

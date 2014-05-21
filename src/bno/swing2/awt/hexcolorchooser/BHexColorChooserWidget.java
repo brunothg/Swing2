@@ -55,10 +55,8 @@ public class BHexColorChooserWidget extends JComponent {
 	}
 
 	public void setSelectedColor(final BColor c) {
-		BColor selectedColorT = selectedColor;
 		selectedColor = c;
-
-		fireSelectedColorChange(selectedColorT, c);
+		repaint();
 	}
 
 	public BColor getMouseOverColor() {

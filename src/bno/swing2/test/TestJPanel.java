@@ -1,11 +1,12 @@
 package bno.swing2.test;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import bno.swing2.awt.BColor;
@@ -26,13 +27,36 @@ public class TestJPanel extends JPanel implements KeyListener {
 		addKeyListener(this);
 		setLayout(new BorderLayout());
 
+		JPanel top = new JPanel();
+		top.setLayout(new FlowLayout());
+		add(top, BorderLayout.NORTH);
+
 		comp = new BHexColorChooserWidget();
+
+		final JLabel hexColorName = new JLabel(comp.getSelectedColor()
+				.toHexString());
+		top.add(hexColorName);
+
+		final JLabel colorName = new JLabel(comp.getSelectedColor()
+				.toRGBString());
+		top.add(colorName);
+
+		final JLabel color = new JLabel("Selected Color");
+		color.setOpaque(true);
+		color.setBackground(comp.getSelectedColor());
+		color.setForeground(comp.getSelectedColor().invertRGB());
+		top.add(color);
+
 		comp.addColorChangeListener(new ColorChangeListener() {
 
 			@Override
 			public void selectedColorChanged(ColorChangeEvent ev) {
 				System.out.printf("Hex Color changed %s -> %s%n", ev
 						.getOldColor().toString(), ev.getNewColor().toString());
+				hexColorName.setText(ev.getNewColor().toHexString());
+				colorName.setText(ev.getNewColor().toRGBString());
+				color.setBackground(ev.getNewColor());
+				color.setForeground(ev.getNewColor().invertRGB());
 				gradient.setColor(ev.getNewColor());
 				gradient2.setColor(ev.getNewColor());
 			}
@@ -49,12 +73,12 @@ public class TestJPanel extends JPanel implements KeyListener {
 
 		add(comp, BorderLayout.CENTER);
 
-		gradient = new BGradientColorChooserWidget(new BColor(Color.GREEN),
-				BGradientColorChooserWidget.Y_AXIS);
+		gradient = new BGradientColorChooserWidget(new BColor(
+				comp.getSelectedColor()), BGradientColorChooserWidget.Y_AXIS);
 		add(gradient, BorderLayout.EAST);
 
-		gradient2 = new BGradientColorChooserWidget(new BColor(Color.GREEN),
-				BGradientColorChooserWidget.X_AXIS);
+		gradient2 = new BGradientColorChooserWidget(new BColor(
+				comp.getSelectedColor()), BGradientColorChooserWidget.X_AXIS);
 		gradient2.setMaximumSubdivisions(40);
 		add(gradient2, BorderLayout.SOUTH);
 
@@ -64,9 +88,13 @@ public class TestJPanel extends JPanel implements KeyListener {
 			public void selectedColorChanged(ColorChangeEvent ev) {
 				System.out.printf("Grad Color changed %s -> %s%n", ev
 						.getOldColor().toString(), ev.getNewColor().toString());
+				hexColorName.setText(ev.getNewColor().toHexString());
+				colorName.setText(ev.getNewColor().toRGBString());
+				color.setBackground(ev.getNewColor());
+				color.setForeground(ev.getNewColor().invertRGB());
 
-				gradient.setColor(ev.getNewColor());
 				gradient2.setColor(ev.getNewColor());
+				gradient.setColor(ev.getNewColor());
 			}
 
 			@Override
