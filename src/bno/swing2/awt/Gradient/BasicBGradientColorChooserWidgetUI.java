@@ -257,7 +257,7 @@ public class BasicBGradientColorChooserWidgetUI extends
 			@Override
 			public void mouseMoved(MouseEvent e) {
 
-				BColor mouseOver = getColorAtPosition(e.getX(), c.getY(), c);
+				BColor mouseOver = getColorAtPosition(e.getX(), e.getY(), c);
 
 				if (!BasicBGradientColorChooserWidgetUI.equals(
 						c.getMouseOverColor(), mouseOver)) {
