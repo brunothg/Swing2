@@ -18,9 +18,22 @@ public class BColor extends Color {
 		super(c.getRGB());
 	}
 
+	public BColor(int rgb) {
+		super(rgb);
+	}
+
 	public BColor invertRGB() {
 		return new BColor(255 - getRed(), 255 - getGreen(), 255 - getBlue(),
 				getAlpha());
+	}
+
+	public boolean equalsRGB(BColor c) {
+		if (c == null) {
+			return false;
+		}
+
+		return (getRed() == c.getRed() && getGreen() == c.getGreen() && getBlue() == c
+				.getBlue());
 	}
 
 }

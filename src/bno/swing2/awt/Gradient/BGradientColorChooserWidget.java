@@ -1,10 +1,9 @@
 package bno.swing2.awt.Gradient;
 
-import java.awt.Color;
-
 import javax.swing.JComponent;
 import javax.swing.UIManager;
 
+import bno.swing2.awt.BColor;
 import bno.swing2.awt.ColorChangeListener;
 
 public class BGradientColorChooserWidget extends JComponent {
@@ -18,14 +17,14 @@ public class BGradientColorChooserWidget extends JComponent {
 	public static final int X_AXIS = 0x01;
 	public static final int Y_AXIS = 0x02;
 
-	private Color color;
+	private BColor color;
 	private int orientation;
 	private int max_sub;
 
-	private Color selectedColor;
-	private Color mouseOverColor;
+	private BColor selectedColor;
+	private BColor mouseOverColor;
 
-	public BGradientColorChooserWidget(Color c, int orientation) {
+	public BGradientColorChooserWidget(BColor c, int orientation) {
 		this.color = c;
 		this.selectedColor = this.color;
 		this.orientation = orientation;
@@ -33,7 +32,7 @@ public class BGradientColorChooserWidget extends JComponent {
 		updateUI();
 	}
 
-	public BGradientColorChooserWidget(Color c) {
+	public BGradientColorChooserWidget(BColor c) {
 		this(c, Y_AXIS);
 	}
 
@@ -61,11 +60,11 @@ public class BGradientColorChooserWidget extends JComponent {
 		return uiClassID;
 	}
 
-	public Color getColor() {
+	public BColor getColor() {
 		return color;
 	}
 
-	public void setColor(final Color c) {
+	public void setColor(final BColor c) {
 		this.color = c;
 
 		repaint();
@@ -97,16 +96,16 @@ public class BGradientColorChooserWidget extends JComponent {
 		repaint();
 	}
 
-	public Color getSelectedColor() {
+	public BColor getSelectedColor() {
 		return this.selectedColor;
 	}
 
-	public Color getMouseOverColor() {
+	public BColor getMouseOverColor() {
 		return this.mouseOverColor;
 	}
 
-	public void firePropertyChange(String propertyName, Color oldValue,
-			Color newValue) {
+	public void firePropertyChange(String propertyName, BColor oldValue,
+			BColor newValue) {
 		if (propertyName == null) {
 			return;
 		}

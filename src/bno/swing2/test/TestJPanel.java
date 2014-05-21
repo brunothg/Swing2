@@ -8,6 +8,7 @@ import java.awt.event.KeyListener;
 
 import javax.swing.JPanel;
 
+import bno.swing2.awt.BColor;
 import bno.swing2.awt.BGraphics2D;
 import bno.swing2.awt.ColorChangeEvent;
 import bno.swing2.awt.ColorChangeListener;
@@ -48,11 +49,11 @@ public class TestJPanel extends JPanel implements KeyListener {
 
 		add(comp, BorderLayout.CENTER);
 
-		gradient = new BGradientColorChooserWidget(Color.GREEN,
+		gradient = new BGradientColorChooserWidget(new BColor(Color.GREEN),
 				BGradientColorChooserWidget.Y_AXIS);
 		add(gradient, BorderLayout.EAST);
 
-		gradient2 = new BGradientColorChooserWidget(Color.GREEN,
+		gradient2 = new BGradientColorChooserWidget(new BColor(Color.GREEN),
 				BGradientColorChooserWidget.X_AXIS);
 		gradient2.setMaximumSubdivisions(40);
 		add(gradient2, BorderLayout.SOUTH);
@@ -91,7 +92,7 @@ public class TestJPanel extends JPanel implements KeyListener {
 			break;
 		}
 
-		comp.setSelectedColor(new Color((int) (Math.random() * 255),
+		comp.setSelectedColor(new BColor((int) (Math.random() * 255),
 				(int) (Math.random() * 255), (int) (Math.random() * 255)));
 	}
 

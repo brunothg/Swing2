@@ -3,6 +3,9 @@ package bno.swing2.awt.Gradient;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
 import javax.swing.JComponent;
 import javax.swing.plaf.ComponentUI;
@@ -14,6 +17,9 @@ public class BasicBGradientColorChooserWidgetUI extends
 
 	protected final static int BORDER_SIZE = 2;
 
+	private MouseListener mL;
+	private MouseMotionListener mmL;
+
 	public static ComponentUI createUI(JComponent c) {
 		return new BasicBGradientColorChooserWidgetUI();
 	}
@@ -23,6 +29,8 @@ public class BasicBGradientColorChooserWidgetUI extends
 	}
 
 	private void installUI(BGradientColorChooserWidget c) {
+		c.addMouseListener(createMouseListener(c));
+		c.addMouseMotionListener(createMouseMotionListener(c));
 	}
 
 	public void uninstallUI(JComponent c) {
@@ -30,6 +38,8 @@ public class BasicBGradientColorChooserWidgetUI extends
 	}
 
 	private void uninstallUI(BGradientColorChooserWidget c) {
+		c.removeMouseListener(mL);
+		c.removeMouseMotionListener(mmL);
 	}
 
 	@Override
@@ -185,6 +195,86 @@ public class BasicBGradientColorChooserWidgetUI extends
 		Dimension ret = new Dimension(Integer.MAX_VALUE, Integer.MAX_VALUE);
 
 		return ret;
+	}
+
+	private MouseMotionListener createMouseMotionListener(
+			final BGradientColorChooserWidget c) {
+		mmL = new MouseMotionListener() {
+
+			@Override
+			public void mouseMoved(MouseEvent e) {
+
+				BColor mouseOver = null /* TODO */;
+
+				if (!mouseOver.equalsRGB(c.getColor())) {
+					fireMouseOverColorChanged(c.getMouseOverColor(), mouseOver,
+							c);
+				}
+			}
+
+			@Override
+			public void mouseDragged(MouseEvent e) {
+			}
+		};
+
+		return mmL;
+	}
+
+	private MouseListener createMouseListener(
+			final BGradientColorChooserWidget c) {
+		mL = new MouseListener() {
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				BColor mouseOver = null;
+
+				if (c.getMouseOverColor() != null) {
+					fireMouseOverColorChanged(c.getMouseOverColor(), mouseOver,
+							c);
+				}
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+			}
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO
+			}
+		};
+
+		return mL;
+	}
+
+	private void fireSelectedColorChanged(BColor selectedColor, BColor clicked,
+			BGradientColorChooserWidget c) {
+		if (c == null) {
+			return;
+		}
+
+		c.firePropertyChange(
+				BGradientColorChooserWidget.SELECTED_COLOR_CHANGED_PROPERTY,
+				selectedColor, clicked);
+	}
+
+	private void fireMouseOverColorChanged(BColor mouseOverColor,
+			BColor newColor, BGradientColorChooserWidget c) {
+		if (c == null) {
+			return;
+		}
+
+		c.firePropertyChange(
+				BGradientColorChooserWidget.MOUSE_OVER_COLOR_CHANGED_PROPERTY,
+				mouseOverColor, newColor);
 	}
 
 }

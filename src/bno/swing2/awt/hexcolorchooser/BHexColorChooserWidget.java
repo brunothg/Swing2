@@ -5,6 +5,7 @@ import java.awt.Color;
 import javax.swing.JComponent;
 import javax.swing.UIManager;
 
+import bno.swing2.awt.BColor;
 import bno.swing2.awt.ColorChangeEvent;
 import bno.swing2.awt.ColorChangeListener;
 
@@ -16,17 +17,17 @@ public class BHexColorChooserWidget extends JComponent {
 	public static final String SELECTED_COLOR_CHANGED_PROPERTY = "selectedColor";
 	public static final String MOUSE_OVER_COLOR_CHANGED_PROPERTY = "mouseOverColor";
 
-	protected Color selectedColor;
-	protected Color mouseOverColor;
+	protected BColor selectedColor;
+	protected BColor mouseOverColor;
 
-	private BHexColorChooserWidget(Color c) {
+	private BHexColorChooserWidget(BColor c) {
 		selectedColor = c;
 		mouseOverColor = null;
 		updateUI();
 	}
 
 	public BHexColorChooserWidget() {
-		this(Color.WHITE);
+		this(new BColor(Color.WHITE));
 	}
 
 	public void setUI(BHexColorChooserWidgetUI ui) {
@@ -49,18 +50,18 @@ public class BHexColorChooserWidget extends JComponent {
 		return uiClassID;
 	}
 
-	public Color getSelectedColor() {
+	public BColor getSelectedColor() {
 		return selectedColor;
 	}
 
-	public void setSelectedColor(final Color c) {
-		Color selectedColorT = selectedColor;
+	public void setSelectedColor(final BColor c) {
+		BColor selectedColorT = selectedColor;
 		selectedColor = c;
 
 		fireSelectedColorChange(selectedColorT, c);
 	}
 
-	public Color getMouseOverColor() {
+	public BColor getMouseOverColor() {
 		return mouseOverColor;
 	}
 
@@ -68,8 +69,8 @@ public class BHexColorChooserWidget extends JComponent {
 		listenerList.add(ColorChangeListener.class, listener);
 	}
 
-	public void firePropertyChange(String propertyName, Color oldValue,
-			Color newValue) {
+	public void firePropertyChange(String propertyName, BColor oldValue,
+			BColor newValue) {
 		if (propertyName == null) {
 			return;
 		}
@@ -81,7 +82,7 @@ public class BHexColorChooserWidget extends JComponent {
 		}
 	}
 
-	private void fireMouseOverColorChange(Color oldValue, Color newValue) {
+	private void fireMouseOverColorChange(BColor oldValue, BColor newValue) {
 		mouseOverColor = newValue;
 
 		ColorChangeListener[] listeners = listenerList
@@ -94,7 +95,7 @@ public class BHexColorChooserWidget extends JComponent {
 		}
 	}
 
-	private void fireSelectedColorChange(Color oldColor, Color newColor) {
+	private void fireSelectedColorChange(BColor oldColor, BColor newColor) {
 		selectedColor = newColor;
 		repaint();
 

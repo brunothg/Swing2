@@ -21,7 +21,7 @@ public class BasicBHexColorChooserWidgetUI extends BHexColorChooserWidgetUI {
 	private static final int borderSize = 3;
 
 	//@formatter:off
-	private static final Color[][] colors = new Color[][] {
+	private static final Color[][] colors = new BColor[][] {
 			{ gc(0x00, 0x33, 0x66), gc(0x33, 0x66, 0x99), gc(0x33, 0x66, 0xCC), gc(0x00, 0x33, 0x99), gc(0x00, 0x00, 0x99), gc(0x00, 0x00, 0xCC), gc(0x00, 0x00, 0x66) },
 			{ gc(0x00, 0x66, 0x66), gc(0x00, 0x66, 0x99), gc(0x00, 0x99, 0xCC), gc(0x00, 0x66, 0xCC), gc(0x00, 0x33, 0xCC), gc(0x00, 0x00, 0xFF), gc(0x33, 0x33, 0xFF), gc(0x33, 0x33, 0x99) }, 
 			{ gc(0x66, 0x99, 0x99), gc(0x00, 0x99, 0x99), gc(0x33, 0xCC, 0xCC), gc(0x00, 0xCC, 0xFF), gc(0x00, 0x99, 0xFF), gc(0x00, 0x66, 0xFF), gc(0x33, 0x66, 0xFF), gc(0x33, 0x33, 0xCC), gc(0x66, 0x66, 0x99) }, 
@@ -218,13 +218,13 @@ public class BasicBHexColorChooserWidgetUI extends BHexColorChooserWidgetUI {
 				&& c1.getBlue() == c2.getBlue();
 	}
 
-	private static Color gc(int r, int g, int b) {
-		return new Color(r, g, b);
+	private static BColor gc(int r, int g, int b) {
+		return new BColor(r, g, b);
 	}
 
-	private Color getColorAtLocation(int x, int y, Color def,
+	private BColor getColorAtLocation(int x, int y, BColor def,
 			final BHexColorChooserWidget c) {
-		Color ret = def;
+		BColor ret = def;
 
 		BufferedImage img = new BufferedImage(c.getWidth(), c.getHeight(),
 				BufferedImage.TYPE_INT_RGB);
@@ -232,7 +232,7 @@ public class BasicBHexColorChooserWidgetUI extends BHexColorChooserWidgetUI {
 		Graphics2D g = img.createGraphics();
 		paint(g, (JComponent) c);
 
-		Color selected = new Color(img.getRGB(x, y));
+		BColor selected = new BColor(img.getRGB(x, y));
 		if (existsColor(selected)) {
 			ret = selected;
 		}
@@ -246,7 +246,7 @@ public class BasicBHexColorChooserWidgetUI extends BHexColorChooserWidgetUI {
 
 			@Override
 			public void mouseMoved(MouseEvent e) {
-				Color mouseOver = getColorAtLocation(e.getX(), e.getY(),
+				BColor mouseOver = getColorAtLocation(e.getX(), e.getY(),
 						c.getMouseOverColor(), c);
 
 				if (!BasicBHexColorChooserWidgetUI.equals(
@@ -271,7 +271,7 @@ public class BasicBHexColorChooserWidgetUI extends BHexColorChooserWidgetUI {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Color clicked = getColorAtLocation(e.getX(), e.getY(),
+				BColor clicked = getColorAtLocation(e.getX(), e.getY(),
 						c.getSelectedColor(), c);
 
 				if (!BasicBHexColorChooserWidgetUI.equals(c.getSelectedColor(),
@@ -294,10 +294,9 @@ public class BasicBHexColorChooserWidgetUI extends BHexColorChooserWidgetUI {
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				Color mouseOver = null;
+				BColor mouseOver = null;
 
-				if (!BasicBHexColorChooserWidgetUI.equals(
-						c.getMouseOverColor(), mouseOver)) {
+				if (c.getMouseListeners() != null) {
 					fireMouseOverColorChanged(c.getMouseOverColor(), mouseOver,
 							c);
 				}
@@ -330,7 +329,7 @@ public class BasicBHexColorChooserWidgetUI extends BHexColorChooserWidgetUI {
 		return ret;
 	}
 
-	private void fireSelectedColorChanged(Color selectedColor, Color clicked,
+	private void fireSelectedColorChanged(BColor selectedColor, BColor clicked,
 			BHexColorChooserWidget c) {
 		if (c == null) {
 			return;
@@ -341,8 +340,8 @@ public class BasicBHexColorChooserWidgetUI extends BHexColorChooserWidgetUI {
 				selectedColor, clicked);
 	}
 
-	private void fireMouseOverColorChanged(Color mouseOverColor,
-			Color newColor, BHexColorChooserWidget c) {
+	private void fireMouseOverColorChanged(BColor mouseOverColor,
+			BColor newColor, BHexColorChooserWidget c) {
 		if (c == null) {
 			return;
 		}
