@@ -27,6 +27,11 @@ public class BColor extends Color {
 				getAlpha());
 	}
 
+	public BColor invert() {
+		return new BColor(255 - getRed(), 255 - getGreen(), 255 - getBlue(),
+				255 - getAlpha());
+	}
+
 	public boolean equalsRGB(BColor c) {
 		if (c == null) {
 			return false;
@@ -34,6 +39,10 @@ public class BColor extends Color {
 
 		return (getRed() == c.getRed() && getGreen() == c.getGreen() && getBlue() == c
 				.getBlue());
+	}
+
+	public boolean equalsARGB(BColor c) {
+		return equalsRGB(c) && getAlpha() == c.getAlpha();
 	}
 
 }
