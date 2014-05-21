@@ -7,8 +7,12 @@ import java.awt.Graphics;
 import javax.swing.JComponent;
 import javax.swing.plaf.ComponentUI;
 
+import bno.swing2.awt.BColor;
+
 public class BasicBGradientColorChooserWidgetUI extends
 		BGradientColorChooserWidgetUI {
+
+	protected final static int BORDER_SIZE = 2;
 
 	public static ComponentUI createUI(JComponent c) {
 		return new BasicBGradientColorChooserWidgetUI();
@@ -36,10 +40,8 @@ public class BasicBGradientColorChooserWidgetUI extends
 	private void paint(Graphics g, BGradientColorChooserWidget c) {
 
 		if (c.getOrientation() == BGradientColorChooserWidget.Y_AXIS) {
-			// Von Oben nach Unten
 			paintY(g, c);
 		} else {
-			// Von Links nach Rechts
 			paintX(g, c);
 		}
 
@@ -63,7 +65,13 @@ public class BasicBGradientColorChooserWidgetUI extends
 					col));
 
 			if (x == midPos) {
+
+				g.setColor(new BColor(g.getColor()).invertRGB());
 				g.fillRect(aktHeight, 0, midHeight, c.getHeight());
+
+				g.setColor(new BColor(g.getColor()).invertRGB());
+				g.fillRect(aktHeight + BORDER_SIZE, 0 + BORDER_SIZE, midHeight
+						- 2 * BORDER_SIZE, c.getHeight() - 2 * BORDER_SIZE);
 				aktHeight += midHeight;
 			} else {
 				g.fillRect(aktHeight, 0, elementHeight, c.getHeight());
@@ -90,7 +98,14 @@ public class BasicBGradientColorChooserWidgetUI extends
 					col));
 
 			if (y == midPos) {
+
+				g.setColor(new BColor(g.getColor()).invertRGB());
 				g.fillRect(0, aktHeight, c.getWidth(), midHeight);
+
+				g.setColor(new BColor(g.getColor()).invertRGB());
+				g.fillRect(0 + BORDER_SIZE, aktHeight + BORDER_SIZE,
+						c.getWidth() - 2 * BORDER_SIZE, midHeight - 2
+								* BORDER_SIZE);
 				aktHeight += midHeight;
 			} else {
 				g.fillRect(0, aktHeight, c.getWidth(), elementHeight);

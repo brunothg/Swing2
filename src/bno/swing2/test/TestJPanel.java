@@ -30,18 +30,19 @@ public class TestJPanel extends JPanel implements KeyListener {
 
 			@Override
 			public void selectedColorChanged(ColorChangeEvent ev) {
-				System.out.printf("Color changed %s -> %s%n", ev.getOldColor()
-						.toString(), ev.getNewColor().toString());
+				System.out.printf("Hex Color changed %s -> %s%n", ev
+						.getOldColor().toString(), ev.getNewColor().toString());
 				gradient.setColor(ev.getNewColor());
 				gradient2.setColor(ev.getNewColor());
 			}
 
 			@Override
 			public void mouseOverColorChanged(ColorChangeEvent ev) {
-				System.out.printf("Mouse over Color changed %s -> %s%n", (ev
-						.getOldColor() != null) ? ev.getOldColor().toString()
-						: "NULL", (ev.getNewColor() != null) ? ev.getNewColor()
-						.toString() : "NULL");
+				System.out.printf("Hex Mouse over Color changed %s -> %s%n",
+						(ev.getOldColor() != null) ? ev.getOldColor()
+								.toString() : "NULL",
+						(ev.getNewColor() != null) ? ev.getNewColor()
+								.toString() : "NULL");
 			}
 		});
 
@@ -53,6 +54,7 @@ public class TestJPanel extends JPanel implements KeyListener {
 
 		gradient2 = new BGradientColorChooserWidget(Color.GREEN,
 				BGradientColorChooserWidget.X_AXIS);
+		gradient2.setMaximumSubdivisions(40);
 		add(gradient2, BorderLayout.SOUTH);
 	}
 

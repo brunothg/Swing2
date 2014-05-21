@@ -5,10 +5,15 @@ import java.awt.Color;
 import javax.swing.JComponent;
 import javax.swing.UIManager;
 
+import bno.swing2.awt.ColorChangeListener;
+
 public class BGradientColorChooserWidget extends JComponent {
 
 	private static final long serialVersionUID = 1L;
 	private static final String uiClassID = "BGradientColorChooserWidgetUI";
+
+	public static final String SELECTED_COLOR_CHANGED_PROPERTY = "selectedColor";
+	public static final String MOUSE_OVER_COLOR_CHANGED_PROPERTY = "mouseOverColor";
 
 	public static final int X_AXIS = 0x01;
 	public static final int Y_AXIS = 0x02;
@@ -42,6 +47,10 @@ public class BGradientColorChooserWidget extends JComponent {
 		} else {
 			setUI(new BasicBGradientColorChooserWidgetUI());
 		}
+	}
+
+	public synchronized void addColorChangeListener(ColorChangeListener listener) {
+		listenerList.add(ColorChangeListener.class, listener);
 	}
 
 	public BGradientColorChooserWidgetUI getUI() {
@@ -94,5 +103,19 @@ public class BGradientColorChooserWidget extends JComponent {
 
 	public Color getMouseOverColor() {
 		return this.mouseOverColor;
+	}
+
+	public void firePropertyChange(String propertyName, Color oldValue,
+			Color newValue) {
+		if (propertyName == null) {
+			return;
+		}
+
+		// TODO: fire Color Change
+		if (propertyName.equals(SELECTED_COLOR_CHANGED_PROPERTY)) {
+
+		} else if (propertyName.equals(MOUSE_OVER_COLOR_CHANGED_PROPERTY)) {
+
+		}
 	}
 }

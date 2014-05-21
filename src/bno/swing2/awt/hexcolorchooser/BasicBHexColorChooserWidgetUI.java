@@ -12,6 +12,7 @@ import java.awt.image.BufferedImage;
 import javax.swing.JComponent;
 import javax.swing.plaf.ComponentUI;
 
+import bno.swing2.awt.BColor;
 import bno.swing2.awt.BGraphics2D;
 
 public class BasicBHexColorChooserWidgetUI extends BHexColorChooserWidgetUI {
@@ -145,8 +146,7 @@ public class BasicBHexColorChooserWidgetUI extends BHexColorChooserWidgetUI {
 	}
 
 	private Color negate(Color color) {
-		return new Color(255 - color.getRed(), 255 - color.getGreen(),
-				255 - color.getBlue(), color.getAlpha());
+		return new BColor(color).invertRGB();
 	}
 
 	private Color getColor(int x, int y) {
