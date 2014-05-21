@@ -1,6 +1,5 @@
 package bno.swing2.awt.Gradient;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
@@ -67,7 +66,7 @@ public class BasicBGradientColorChooserWidgetUI extends
 
 		int midPos = (int) (Math.round(anzElemente / 2.0) - 1);
 
-		Color col = c.getColor();
+		BColor col = c.getColor();
 
 		int aktHeight = 0;
 		for (int x = 0; x < anzElemente; x++) {
@@ -100,7 +99,7 @@ public class BasicBGradientColorChooserWidgetUI extends
 
 		int midPos = (int) (Math.round(anzElemente / 2.0) - 1);
 
-		Color col = c.getColor();
+		BColor col = c.getColor();
 
 		int aktHeight = 0;
 		for (int y = 0; y < anzElemente; y++) {
@@ -124,9 +123,51 @@ public class BasicBGradientColorChooserWidgetUI extends
 		}
 	}
 
-	private Color getColorAtPosition(int y, int anzElemente, int midPos,
-			int ende, final Color color) {
-		Color ret = color;
+	private BColor getColorAtPosition(int x, int y,
+			BGradientColorChooserWidget c) {
+
+		int elementHeight;
+		int anzElemente;
+		int midHeight;
+		int soll;
+
+		if (c.getOrientation() == BGradientColorChooserWidget.Y_AXIS) {
+			elementHeight = Math.max(
+					c.getHeight() / c.getMaximumSubdivisions(), 1);
+			anzElemente = c.getHeight() / elementHeight;
+			midHeight = c.getHeight() - ((anzElemente - 1) * elementHeight);
+			soll = y;
+		} else {
+			elementHeight = Math.max(c.getWidth() / c.getMaximumSubdivisions(),
+					1);
+			anzElemente = c.getWidth() / elementHeight;
+			midHeight = c.getWidth() - ((anzElemente - 1) * elementHeight);
+			soll = x;
+		}
+
+		int midPos = (int) (Math.round(anzElemente / 2.0) - 1);
+		int ende = anzElemente;
+		BColor color = c.getColor();
+
+		int y2;
+		int ist = 0;
+
+		for (y2 = 0; y2 < anzElemente; y2++) {
+			int next = (y2 != midPos) ? elementHeight : midHeight;
+
+			if (soll >= ist && soll <= ist + next) {
+				break;
+			}
+
+			ist += next;
+		}
+
+		return getColorAtPosition(y2, anzElemente, midPos, ende, color);
+	}
+
+	private BColor getColorAtPosition(int y, int anzElemente, int midPos,
+			int ende, final BColor color) {
+		BColor ret = color;
 		if (midPos == y) {
 			return ret;
 		}
@@ -151,7 +192,7 @@ public class BasicBGradientColorChooserWidgetUI extends
 					/ (double) (midPosEnde));
 		}
 
-		ret = new Color(Math.min(Math.max(ret.getRed() + dif[0] * posDif, 0),
+		ret = new BColor(Math.min(Math.max(ret.getRed() + dif[0] * posDif, 0),
 				255), Math.min(Math.max(ret.getGreen() + dif[1] * posDif, 0),
 				255), Math.min(Math.max(ret.getBlue() + dif[2] * posDif, 0),
 				255));
@@ -197,6 +238,18 @@ public class BasicBGradientColorChooserWidgetUI extends
 		return ret;
 	}
 
+	static boolean equals(BColor c1, BColor c2) {
+		if (c1 == c2 && c2 == null) {
+			return true;
+		}
+
+		if (c1 == null || c2 == null) {
+			return false;
+		}
+
+		return c1.equalsRGB(c2);
+	}
+
 	private MouseMotionListener createMouseMotionListener(
 			final BGradientColorChooserWidget c) {
 		mmL = new MouseMotionListener() {
@@ -204,9 +257,10 @@ public class BasicBGradientColorChooserWidgetUI extends
 			@Override
 			public void mouseMoved(MouseEvent e) {
 
-				BColor mouseOver = null /* TODO */;
+				BColor mouseOver = getColorAtPosition(e.getX(), c.getY(), c);
 
-				if (!mouseOver.equalsRGB(c.getColor())) {
+				if (!BasicBGradientColorChooserWidgetUI.equals(
+						c.getMouseOverColor(), mouseOver)) {
 					fireMouseOverColorChanged(c.getMouseOverColor(), mouseOver,
 							c);
 				}
@@ -248,7 +302,13 @@ public class BasicBGradientColorChooserWidgetUI extends
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				// TODO
+
+				BColor clicked = getColorAtPosition(e.getX(), e.getY(), c);
+
+				if (!BasicBGradientColorChooserWidgetUI.equals(
+						c.getSelectedColor(), clicked)) {
+					fireSelectedColorChanged(c.getSelectedColor(), clicked, c);
+				}
 			}
 		};
 

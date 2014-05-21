@@ -57,6 +57,30 @@ public class TestJPanel extends JPanel implements KeyListener {
 				BGradientColorChooserWidget.X_AXIS);
 		gradient2.setMaximumSubdivisions(40);
 		add(gradient2, BorderLayout.SOUTH);
+
+		ColorChangeListener gccl = new ColorChangeListener() {
+
+			@Override
+			public void selectedColorChanged(ColorChangeEvent ev) {
+				System.out.printf("Grad Color changed %s -> %s%n", ev
+						.getOldColor().toString(), ev.getNewColor().toString());
+
+				gradient.setColor(ev.getNewColor());
+				gradient2.setColor(ev.getNewColor());
+			}
+
+			@Override
+			public void mouseOverColorChanged(ColorChangeEvent ev) {
+				System.out.printf("Grad Mouse over Color changed %s -> %s%n",
+						(ev.getOldColor() != null) ? ev.getOldColor()
+								.toString() : "NULL",
+						(ev.getNewColor() != null) ? ev.getNewColor()
+								.toString() : "NULL");
+			}
+		};
+
+		gradient.addColorChangeListener(gccl);
+		gradient2.addColorChangeListener(gccl);
 	}
 
 	int zoom = 300;

@@ -4,6 +4,7 @@ import javax.swing.JComponent;
 import javax.swing.UIManager;
 
 import bno.swing2.awt.BColor;
+import bno.swing2.awt.ColorChangeEvent;
 import bno.swing2.awt.ColorChangeListener;
 
 public class BGradientColorChooserWidget extends JComponent {
@@ -110,11 +111,36 @@ public class BGradientColorChooserWidget extends JComponent {
 			return;
 		}
 
-		// TODO: fire Color Change
 		if (propertyName.equals(SELECTED_COLOR_CHANGED_PROPERTY)) {
-
+			fireSelectedColorChange(oldValue, newValue);
 		} else if (propertyName.equals(MOUSE_OVER_COLOR_CHANGED_PROPERTY)) {
+			fireMouseOverColorChange(oldValue, newValue);
+		}
+	}
 
+	private void fireMouseOverColorChange(BColor oldValue, BColor newValue) {
+		mouseOverColor = newValue;
+
+		ColorChangeListener[] listeners = listenerList
+				.getListeners(ColorChangeListener.class);
+
+		ColorChangeEvent event = new ColorChangeEvent(this, oldValue, newValue);
+
+		for (ColorChangeListener listener : listeners) {
+			listener.mouseOverColorChanged(event);
+		}
+	}
+
+	private void fireSelectedColorChange(BColor oldValue, BColor newValue) {
+		selectedColor = newValue;
+
+		ColorChangeListener[] listeners = listenerList
+				.getListeners(ColorChangeListener.class);
+
+		ColorChangeEvent event = new ColorChangeEvent(this, oldValue, newValue);
+
+		for (ColorChangeListener listener : listeners) {
+			listener.selectedColorChanged(event);
 		}
 	}
 }

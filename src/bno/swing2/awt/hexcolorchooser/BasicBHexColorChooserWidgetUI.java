@@ -21,7 +21,7 @@ public class BasicBHexColorChooserWidgetUI extends BHexColorChooserWidgetUI {
 	private static final int borderSize = 3;
 
 	//@formatter:off
-	private static final Color[][] colors = new BColor[][] {
+	private static final BColor[][] colors = new BColor[][] {
 			{ gc(0x00, 0x33, 0x66), gc(0x33, 0x66, 0x99), gc(0x33, 0x66, 0xCC), gc(0x00, 0x33, 0x99), gc(0x00, 0x00, 0x99), gc(0x00, 0x00, 0xCC), gc(0x00, 0x00, 0x66) },
 			{ gc(0x00, 0x66, 0x66), gc(0x00, 0x66, 0x99), gc(0x00, 0x99, 0xCC), gc(0x00, 0x66, 0xCC), gc(0x00, 0x33, 0xCC), gc(0x00, 0x00, 0xFF), gc(0x33, 0x33, 0xFF), gc(0x33, 0x33, 0x99) }, 
 			{ gc(0x66, 0x99, 0x99), gc(0x00, 0x99, 0x99), gc(0x33, 0xCC, 0xCC), gc(0x00, 0xCC, 0xFF), gc(0x00, 0x99, 0xFF), gc(0x00, 0x66, 0xFF), gc(0x33, 0x66, 0xFF), gc(0x33, 0x33, 0xCC), gc(0x66, 0x66, 0x99) }, 
@@ -149,7 +149,7 @@ public class BasicBHexColorChooserWidgetUI extends BHexColorChooserWidgetUI {
 		return new BColor(color).invertRGB();
 	}
 
-	private Color getColor(int x, int y) {
+	private BColor getColor(int x, int y) {
 		return colors[y][x];
 	}
 
@@ -187,13 +187,13 @@ public class BasicBHexColorChooserWidgetUI extends BHexColorChooserWidgetUI {
 		return ret;
 	}
 
-	private boolean existsColor(Color selected) {
+	private boolean existsColor(BColor selected) {
 		boolean ret = false;
 
 		loop: for (int y2 = 0; y2 < colors.length; y2++) {
 			for (int x2 = 0; x2 < colors[y2].length; x2++) {
 
-				Color check = getColor(x2, y2);
+				BColor check = getColor(x2, y2);
 				if (equals(check, selected)) {
 					ret = true;
 					break loop;
@@ -205,7 +205,7 @@ public class BasicBHexColorChooserWidgetUI extends BHexColorChooserWidgetUI {
 		return ret;
 	}
 
-	static boolean equals(Color c1, Color c2) {
+	static boolean equals(BColor c1, BColor c2) {
 		if (c1 == c2 && c2 == null) {
 			return true;
 		}
@@ -214,8 +214,7 @@ public class BasicBHexColorChooserWidgetUI extends BHexColorChooserWidgetUI {
 			return false;
 		}
 
-		return c1.getRed() == c2.getRed() && c1.getGreen() == c2.getGreen()
-				&& c1.getBlue() == c2.getBlue();
+		return c1.equalsRGB(c2);
 	}
 
 	private static BColor gc(int r, int g, int b) {
