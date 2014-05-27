@@ -32,7 +32,7 @@ public class BColorChooser extends JColorChooser {
 
 		AbstractColorChooserPanel[] panelsAr = getChooserPanels();
 
-		List<AbstractColorChooserPanel> panels = new ArrayList<>(
+		List<AbstractColorChooserPanel> panels = new ArrayList<AbstractColorChooserPanel>(
 				panelsAr.length + 1);
 
 		for (AbstractColorChooserPanel pl : panelsAr) {
