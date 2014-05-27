@@ -1,4 +1,4 @@
-package bno.swing2.awt.hexcolorchooser;
+package bno.swing2.awt.colorchooser.hexcolorchooser;
 
 import javax.swing.plaf.ComponentUI;
 

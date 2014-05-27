@@ -1,4 +1,4 @@
-package bno.swing2.awt.Gradient;
+package bno.swing2.awt.colorchooser.gradient;
 
 import java.awt.Dimension;
 import java.awt.Graphics;

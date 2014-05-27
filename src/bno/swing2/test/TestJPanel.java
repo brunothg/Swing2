@@ -13,8 +13,8 @@ import bno.swing2.awt.BColor;
 import bno.swing2.awt.BGraphics2D;
 import bno.swing2.awt.ColorChangeEvent;
 import bno.swing2.awt.ColorChangeListener;
-import bno.swing2.awt.Gradient.BGradientColorChooserWidget;
-import bno.swing2.awt.hexcolorchooser.BHexColorChooserWidget;
+import bno.swing2.awt.colorchooser.gradient.BGradientColorChooserWidget;
+import bno.swing2.awt.colorchooser.hexcolorchooser.BHexColorChooserWidget;
 
 public class TestJPanel extends JPanel implements KeyListener {
 
