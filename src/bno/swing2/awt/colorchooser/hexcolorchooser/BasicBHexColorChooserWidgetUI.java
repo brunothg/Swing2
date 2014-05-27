@@ -78,10 +78,10 @@ public class BasicBHexColorChooserWidgetUI extends BHexColorChooserWidgetUI {
 		int[] selectedColorIndex = getIndex(c.getSelectedColor());
 
 		int maxSizeWidth = (int) Math
-				.floor((c.getWidth() / (double) numberOfHex)
+				.floor(((c.getWidth() - borderSize) / (double) numberOfHex)
 						/ (Math.sqrt(3) / 2.0));
 		int maxSizeHeight = (int) Math
-				.floor((c.getHeight() / (double) numberOfHex) * (1.25));
+				.floor(((c.getHeight() - borderSize) / (double) numberOfHex) * (1.25));
 
 		int sizeOfOneHex = Math.min(maxSizeHeight, maxSizeWidth);
 		int sizeIOfOneHex = (int) (sizeOfOneHex * (Math.sqrt(3) / 2));
