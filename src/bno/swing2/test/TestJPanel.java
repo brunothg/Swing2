@@ -25,8 +25,8 @@ public class TestJPanel extends JPanel implements KeyListener {
 		BColorChooser cc = new BColorChooser();
 		add(cc, BorderLayout.CENTER);
 
-		cc.setColor(BColorChooser
-				.showDialog(this, "Farbe aussuchen", Color.RED));
+		cc.setColor(BColorChooser.showDialog(this, "Test BColorChooserDialog",
+				Color.RED));
 	}
 
 	int zoom = 300;

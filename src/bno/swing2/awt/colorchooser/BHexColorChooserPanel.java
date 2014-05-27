@@ -30,6 +30,10 @@ public class BHexColorChooserPanel extends AbstractColorChooserPanel implements
 
 		if (hexWidget != null) {
 			hexWidget.setSelectedColor(new BColor(getColorFromModel()));
+
+			if (gradientWidget != null) {
+				gradientWidget.setColor(hexWidget.getSelectedColor());
+			}
 		}
 
 	}

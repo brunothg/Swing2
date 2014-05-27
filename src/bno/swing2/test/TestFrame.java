@@ -11,7 +11,7 @@ public class TestFrame {
 	private static JFrame disp;
 
 	public static void main(String[] args) {
-		// sys();
+		sys();
 
 		disp = new JFrame("Swing2 - Test");
 		disp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
