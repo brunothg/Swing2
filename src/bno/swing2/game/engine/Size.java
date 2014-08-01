@@ -1,4 +1,4 @@
-package bno.swing.game.engine;
+package bno.swing2.game.engine;
 
 public class Size {
 

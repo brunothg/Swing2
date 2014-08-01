@@ -1,4 +1,4 @@
-package bno.swing.game.engine;
+package bno.swing2.game.engine;
 
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
