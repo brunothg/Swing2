@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -75,6 +76,12 @@ public class BasicBHexColorChooserWidgetUI extends BHexColorChooserWidgetUI {
 	}
 
 	private void paint(Graphics g, BHexColorChooserWidget c) {
+
+		if (g instanceof Graphics2D) {
+			((Graphics2D) g).setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+					RenderingHints.VALUE_ANTIALIAS_ON);
+		}
+
 		int[] selectedColorIndex = getIndex(c.getSelectedColor());
 
 		int maxSizeWidth = (int) Math
