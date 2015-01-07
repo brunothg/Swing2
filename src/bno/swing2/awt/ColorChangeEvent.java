@@ -2,8 +2,6 @@ package bno.swing2.awt;
 
 import java.awt.Component;
 
-import bno.swing2.awt.blink.BColor;
-
 public class ColorChangeEvent {
 
 	private BColor oldColor;
