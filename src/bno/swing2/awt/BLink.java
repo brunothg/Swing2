@@ -110,19 +110,26 @@ public class BLink extends JLabel {
 
 	private void setForegroundOverColor(boolean mouseOver) {
 
-		// TODO
-
 		if (mouseOver) {
 
+			beforeOverColor = getForeground();
 			setForeground(getOverColor());
 		} else {
 
 			setForeground(beforeOverColor);
+			beforeOverColor = null;
 		}
 	}
 
 	private void updateForegroundColor() {
-		// TODO
+
+		if (isVisited()) {
+
+			setForeground(getVisitedColor());
+		} else {
+
+			setForeground(getNormalColor());
+		}
 	}
 
 	private void openUri() throws IOException {
@@ -165,14 +172,14 @@ public class BLink extends JLabel {
 	 * to visit the known URI.
 	 */
 	public void visit() {
-	
+
 		setVisited(true);
 		setForeground(getVisitedColor());
-	
+
 		try {
 			openUri();
 		} catch (IOException e) {
-	
+
 			throw new RuntimeException(e);
 		}
 	}
