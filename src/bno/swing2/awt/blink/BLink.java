@@ -87,6 +87,8 @@ public class BLink extends JLabel {
 				underline(true);
 				setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 				updateForegroundOverColor(true);
+
+				fireHoverEvent(true);
 			}
 
 			@Override
@@ -95,6 +97,8 @@ public class BLink extends JLabel {
 				underline(false);
 				setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 				updateForegroundOverColor(false);
+
+				fireHoverEvent(false);
 			}
 
 			@Override
@@ -103,6 +107,8 @@ public class BLink extends JLabel {
 				if (e.getClickCount() == getClickCount()) {
 
 					visit();
+
+					fireActivatedEvent();
 				}
 			}
 		});
@@ -271,5 +277,35 @@ public class BLink extends JLabel {
 	 */
 	public void setClickCount(int clickCount) {
 		this.clickCount = clickCount;
+	}
+
+	protected void fireHoverEvent(boolean hover) {
+
+		LinkListener[] ll = listenerList.getListeners(LinkListener.class);
+
+		for (LinkListener l : ll) {
+
+			l.hover(this, hover);
+		}
+	}
+
+	protected void fireActivatedEvent() {
+
+		LinkListener[] ll = listenerList.getListeners(LinkListener.class);
+
+		for (LinkListener l : ll) {
+
+			l.hactivated(this);
+		}
+	}
+
+	public void addLinkListener(LinkListener ll) {
+
+		listenerList.add(LinkListener.class, ll);
+	}
+
+	public void removeLinkListener(LinkListener ll) {
+
+		listenerList.remove(LinkListener.class, ll);
 	}
 }
