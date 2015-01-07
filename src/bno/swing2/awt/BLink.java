@@ -24,7 +24,7 @@ public class BLink extends JLabel {
 	private static final long serialVersionUID = 1L;
 
 	private Color normalColor = new Color(6, 69, 173);
-	private Color overColor = new Color(6, 0, 173);
+	private Color overColor = normalColor;
 	private Color visitedColor = new Color(11, 0, 128);
 	private Color beforeOverColor = null;
 
@@ -86,7 +86,7 @@ public class BLink extends JLabel {
 
 				underline(true);
 				setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-				setForegroundOverColor(true);
+				updateForegroundOverColor(true);
 			}
 
 			@Override
@@ -94,7 +94,7 @@ public class BLink extends JLabel {
 
 				underline(false);
 				setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-				setForegroundOverColor(false);
+				updateForegroundOverColor(false);
 			}
 
 			@Override
@@ -108,7 +108,7 @@ public class BLink extends JLabel {
 		});
 	}
 
-	private void setForegroundOverColor(boolean mouseOver) {
+	private void updateForegroundOverColor(boolean mouseOver) {
 
 		if (mouseOver) {
 
@@ -123,12 +123,26 @@ public class BLink extends JLabel {
 
 	private void updateForegroundColor() {
 
-		if (isVisited()) {
+		System.out
+				.println("update " + isVisited() + " " + beforeOverColor != null);
+		if (beforeOverColor != null) {
 
-			setForeground(getVisitedColor());
+			if (isVisited()) {
+
+				beforeOverColor = getVisitedColor();
+			} else {
+
+				beforeOverColor = getNormalColor();
+			}
 		} else {
 
-			setForeground(getNormalColor());
+			if (isVisited()) {
+
+				setForeground(getVisitedColor());
+			} else {
+
+				setForeground(getNormalColor());
+			}
 		}
 	}
 
@@ -174,7 +188,7 @@ public class BLink extends JLabel {
 	public void visit() {
 
 		setVisited(true);
-		setForeground(getVisitedColor());
+		updateForegroundColor();
 
 		try {
 			openUri();
@@ -258,5 +272,4 @@ public class BLink extends JLabel {
 	public void setClickCount(int clickCount) {
 		this.clickCount = clickCount;
 	}
-
 }
