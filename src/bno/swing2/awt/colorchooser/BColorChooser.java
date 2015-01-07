@@ -32,7 +32,7 @@ import javax.swing.UIManager;
 import javax.swing.colorchooser.AbstractColorChooserPanel;
 import javax.swing.colorchooser.ColorSelectionModel;
 
-import bno.swing2.awt.BColor;
+import bno.swing2.awt.blink.BColor;
 
 public class BColorChooser extends JColorChooser {
 

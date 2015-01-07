@@ -1,4 +1,4 @@
-package bno.swing2.awt;
+package bno.swing2.awt.blink;
 
 import java.awt.Color;
 
