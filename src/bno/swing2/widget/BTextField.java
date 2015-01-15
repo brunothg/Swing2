@@ -1,13 +1,11 @@
 package bno.swing2.widget;
 
-import java.awt.BorderLayout;
 import java.awt.Graphics;
 import java.awt.Insets;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 
 import javax.swing.BorderFactory;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
@@ -17,6 +15,7 @@ public class BTextField extends JTextField {
 	private static final BColor DEF_COLOR_HINT = BColor.color("#aaaaaa");
 
 	private JLabel hint;
+	private boolean ignoreHintFocus;
 
 	private FocusListener focusLisener;
 
@@ -48,6 +47,8 @@ public class BTextField extends JTextField {
 
 	private void create() {
 
+		setIgnoreHintFocus(false);
+
 		hint = new JLabel();
 		hint.setOpaque(false);
 		hint.setVisible(true);
@@ -56,7 +57,6 @@ public class BTextField extends JTextField {
 		hint.setHorizontalAlignment(JLabel.LEFT);
 		hint.setForeground(DEF_COLOR_HINT);
 
-		// addFocusListener(createFocusListener());
 	}
 
 	private FocusListener createFocusListener() {
@@ -93,7 +93,8 @@ public class BTextField extends JTextField {
 
 		super.paintComponent(g);
 
-		if ((getText() == null || getText().isEmpty()) /* && !isFocusOwner() */) {
+		if ((getText() == null || getText().isEmpty())
+				&& (!isFocusOwner() || isIgnoreHintFocus())) {
 
 			paintHint(g);
 		}
@@ -126,20 +127,27 @@ public class BTextField extends JTextField {
 		this.hint.setText(hint);
 	}
 
-	public static void main(String[] args) {
-		JFrame disp = new JFrame();
-		disp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		disp.setLayout(new BorderLayout());
+	public boolean isIgnoreHintFocus() {
+		return ignoreHintFocus;
+	}
 
-		BTextField textField1 = new BTextField();
-		textField1.setHint("Hint");
-		disp.add(textField1, BorderLayout.CENTER);
+	/**
+	 * Influences the situations in which the hint is visible. If the focus is
+	 * ignored, the hint is only invisible if there is some text in this text
+	 * field. Otherwise the hint is also invisible if the text field accepts
+	 * keyboard inputs. The default is true.
+	 * 
+	 * @param ignoreHintFocus
+	 *            if true the hint is only invisible if there is some text in
+	 *            this text field
+	 */
+	public void setIgnoreHintFocus(boolean ignoreHintFocus) {
+		this.ignoreHintFocus = ignoreHintFocus;
 
-		BTextField textField2 = new BTextField();
-		textField2.setHint("Mal was anderes");
-		disp.add(textField2, BorderLayout.SOUTH);
-
-		disp.pack();
-		disp.setVisible(true);
+		if (!this.ignoreHintFocus) {
+			addFocusListener(createFocusListener());
+		} else {
+			removeFocusListener(focusLisener);
+		}
 	}
 }
