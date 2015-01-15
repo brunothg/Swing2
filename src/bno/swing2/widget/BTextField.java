@@ -56,7 +56,7 @@ public class BTextField extends JTextField {
 		hint.setHorizontalAlignment(JLabel.LEFT);
 		hint.setForeground(DEF_COLOR_HINT);
 
-		addFocusListener(createFocusListener());
+		// addFocusListener(createFocusListener());
 	}
 
 	private FocusListener createFocusListener() {
@@ -70,17 +70,22 @@ public class BTextField extends JTextField {
 			@Override
 			public void focusLost(FocusEvent e) {
 
-				repaint();
+				saveRepaint();
 			}
 
 			@Override
 			public void focusGained(FocusEvent e) {
 
-				repaint();
+				saveRepaint();
 			}
 		};
 
 		return focusLisener;
+	}
+
+	private void saveRepaint() {
+
+		repaint();
 	}
 
 	@Override
@@ -88,7 +93,7 @@ public class BTextField extends JTextField {
 
 		super.paintComponent(g);
 
-		if ((getText() == null || getText().isEmpty()) && !isFocusOwner()) {
+		if ((getText() == null || getText().isEmpty()) /* && !isFocusOwner() */) {
 
 			paintHint(g);
 		}
