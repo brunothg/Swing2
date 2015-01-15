@@ -54,4 +54,54 @@ public class BColor extends Color {
 				getBlue());
 	}
 
+	/**
+	 * Creates a BColor based on a hexadecimal string. The syntax should follow:
+	 * [#]rrggbb[aa]
+	 * 
+	 * @param hexCol
+	 *            Hexadecimal color string
+	 * @return The color represented by this string
+	 */
+	public static BColor color(String hexCol) {
+
+		if (hexCol == null || hexCol.isEmpty()) {
+			return null;
+		}
+
+		int[] rgba = new int[] { 0, 0, 0, 255 };
+
+		if (hexCol.startsWith("#")) {
+			hexCol = hexCol.substring(1);
+		}
+
+		int anzahl;
+
+		if (hexCol.length() % 3 == 0) {
+
+			anzahl = 3;
+		} else if (hexCol.length() % 4 == 0) {
+
+			anzahl = 4;
+		} else {
+
+			throw new ColorFormatException("Invalid color format: " + hexCol);
+		}
+
+		for (int i = 0; i < anzahl; i++) {
+
+			rgba[i] = Integer.parseInt(hexCol.substring(0, 2), 16);
+			hexCol = hexCol.substring(2);
+		}
+
+		return new BColor(rgba[0], rgba[1], rgba[2], rgba[3]);
+	}
+
+	public static class ColorFormatException extends RuntimeException {
+
+		private static final long serialVersionUID = 8115734393484939671L;
+
+		public ColorFormatException(String s) {
+			super(s);
+		}
+	}
 }
