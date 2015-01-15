@@ -1,6 +1,8 @@
-package bno.swing2.widget;
+package bno.swing2.widget.colorchooser;
 
 import java.awt.Component;
+
+import bno.swing2.widget.BColor;
 
 public class ColorChangeEvent {
 

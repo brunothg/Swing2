@@ -6,8 +6,8 @@ import javax.swing.JComponent;
 import javax.swing.UIManager;
 
 import bno.swing2.widget.BColor;
-import bno.swing2.widget.ColorChangeEvent;
-import bno.swing2.widget.ColorChangeListener;
+import bno.swing2.widget.colorchooser.ColorChangeEvent;
+import bno.swing2.widget.colorchooser.ColorChangeListener;
 
 public class BHexColorChooserWidget extends JComponent {
 
