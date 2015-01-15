@@ -119,6 +119,22 @@ public class BTextField extends JTextField {
 		hint.paint(g);
 	}
 
+	public void setHintAlignment(int horizontalAlignment, int verticalAlignment) {
+
+		hint.setHorizontalAlignment(horizontalAlignment);
+		hint.setVerticalAlignment(verticalAlignment);
+	}
+
+	/**
+	 * 
+	 * @return int[horizontalAlignment, verticalAlignment]
+	 */
+	public int[] getHintAlignment() {
+
+		return new int[] { hint.getHorizontalAlignment(),
+				hint.getVerticalAlignment() };
+	}
+
 	public String getHint() {
 		return hint.getText();
 	}
