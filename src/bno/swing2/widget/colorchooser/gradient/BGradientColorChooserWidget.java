@@ -1,11 +1,11 @@
-package bno.swing2.awt.colorchooser.gradient;
+package bno.swing2.widget.colorchooser.gradient;
 
 import javax.swing.JComponent;
 import javax.swing.UIManager;
 
-import bno.swing2.awt.BColor;
-import bno.swing2.awt.ColorChangeEvent;
-import bno.swing2.awt.ColorChangeListener;
+import bno.swing2.widget.BColor;
+import bno.swing2.widget.ColorChangeEvent;
+import bno.swing2.widget.ColorChangeListener;
 
 public class BGradientColorChooserWidget extends JComponent {
 

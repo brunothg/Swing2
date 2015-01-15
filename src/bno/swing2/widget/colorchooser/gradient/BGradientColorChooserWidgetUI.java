@@ -1,4 +1,4 @@
-package bno.swing2.awt.colorchooser.gradient;
+package bno.swing2.widget.colorchooser.gradient;
 
 import javax.swing.plaf.ComponentUI;
 

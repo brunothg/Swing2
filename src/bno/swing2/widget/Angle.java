@@ -1,4 +1,4 @@
-package bno.swing2.awt;
+package bno.swing2.widget;
 
 public class Angle {
 

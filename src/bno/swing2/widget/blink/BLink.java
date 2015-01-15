@@ -1,4 +1,4 @@
-package bno.swing2.awt.blink;
+package bno.swing2.widget.blink;
 
 import java.awt.Color;
 import java.awt.Cursor;

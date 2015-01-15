@@ -1,4 +1,4 @@
-package bno.swing2.awt.colorchooser;
+package bno.swing2.widget.colorchooser;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -7,11 +7,11 @@ import java.awt.event.KeyEvent;
 import javax.swing.Icon;
 import javax.swing.colorchooser.AbstractColorChooserPanel;
 
-import bno.swing2.awt.BColor;
-import bno.swing2.awt.ColorChangeEvent;
-import bno.swing2.awt.ColorChangeListener;
-import bno.swing2.awt.colorchooser.gradient.BGradientColorChooserWidget;
-import bno.swing2.awt.colorchooser.hexcolorchooser.BHexColorChooserWidget;
+import bno.swing2.widget.BColor;
+import bno.swing2.widget.ColorChangeEvent;
+import bno.swing2.widget.ColorChangeListener;
+import bno.swing2.widget.colorchooser.gradient.BGradientColorChooserWidget;
+import bno.swing2.widget.colorchooser.hexcolorchooser.BHexColorChooserWidget;
 
 public class BHexColorChooserPanel extends AbstractColorChooserPanel implements
 		ColorChangeListener {

@@ -1,4 +1,4 @@
-package bno.swing2.awt.colorchooser.hexcolorchooser;
+package bno.swing2.widget.colorchooser.hexcolorchooser;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -13,8 +13,8 @@ import java.awt.image.BufferedImage;
 import javax.swing.JComponent;
 import javax.swing.plaf.ComponentUI;
 
-import bno.swing2.awt.BColor;
-import bno.swing2.awt.BGraphics2D;
+import bno.swing2.widget.BColor;
+import bno.swing2.widget.BGraphics2D;
 
 public class BasicBHexColorChooserWidgetUI extends BHexColorChooserWidgetUI {
 

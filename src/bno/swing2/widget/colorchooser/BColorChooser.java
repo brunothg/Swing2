@@ -1,4 +1,4 @@
-package bno.swing2.awt.colorchooser;
+package bno.swing2.widget.colorchooser;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -32,7 +32,7 @@ import javax.swing.UIManager;
 import javax.swing.colorchooser.AbstractColorChooserPanel;
 import javax.swing.colorchooser.ColorSelectionModel;
 
-import bno.swing2.awt.BColor;
+import bno.swing2.widget.BColor;
 
 public class BColorChooser extends JColorChooser {
 

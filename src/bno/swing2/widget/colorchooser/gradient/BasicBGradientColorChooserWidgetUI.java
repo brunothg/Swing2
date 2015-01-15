@@ -1,4 +1,4 @@
-package bno.swing2.awt.colorchooser.gradient;
+package bno.swing2.widget.colorchooser.gradient;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -9,7 +9,7 @@ import java.awt.event.MouseMotionListener;
 import javax.swing.JComponent;
 import javax.swing.plaf.ComponentUI;
 
-import bno.swing2.awt.BColor;
+import bno.swing2.widget.BColor;
 
 public class BasicBGradientColorChooserWidgetUI extends
 		BGradientColorChooserWidgetUI {
