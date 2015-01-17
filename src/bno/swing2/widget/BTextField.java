@@ -48,6 +48,7 @@ public class BTextField extends JTextField {
 	private void create() {
 
 		setIgnoreHintFocus(false);
+		setIgnoreRepaint(false);
 
 		hint = new JLabel();
 		hint.setOpaque(false);
