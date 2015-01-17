@@ -1,13 +1,11 @@
 package bno.swing2.widget;
 
-import java.awt.BorderLayout;
 import java.awt.Graphics;
 import java.awt.Insets;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 
 import javax.swing.BorderFactory;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
