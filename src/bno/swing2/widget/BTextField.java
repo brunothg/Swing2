@@ -1,18 +1,20 @@
 package bno.swing2.widget;
 
+import java.awt.BorderLayout;
 import java.awt.Graphics;
 import java.awt.Insets;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 public class BTextField extends JTextField {
 
 	private static final long serialVersionUID = 1L;
-	private static final BColor DEF_COLOR_HINT = BColor.color("#aaaaaa");
+	private static final BColor DEF_COLOR_HINT = BColor.color("#999999");
 
 	private JLabel hint;
 	private boolean ignoreHintFocus;
