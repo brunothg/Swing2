@@ -1,12 +1,19 @@
 package bno.swing2.widget.xswitch;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.io.IOException;
+import java.net.MalformedURLException;
 
 import javax.swing.Action;
 import javax.swing.Icon;
 import javax.swing.JCheckBox;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.border.Border;
 
@@ -114,6 +121,11 @@ public class BIOSwitch extends JCheckBox {
 		return onColor;
 	}
 
+	/**
+	 * Sets the background color for the switch in it's on state
+	 * 
+	 * @param offColor
+	 */
 	public void setOnColor(Color onColor) {
 		this.onColor = onColor;
 	}
@@ -122,6 +134,11 @@ public class BIOSwitch extends JCheckBox {
 		return offColor;
 	}
 
+	/**
+	 * Sets the background color for the switch in it's off state
+	 * 
+	 * @param offColor
+	 */
 	public void setOffColor(Color offColor) {
 		this.offColor = offColor;
 	}
@@ -130,6 +147,12 @@ public class BIOSwitch extends JCheckBox {
 		return (getText() == null) ? "" : getText();
 	}
 
+	/**
+	 * Sets the string for the switch in it's on state
+	 * 
+	 * @param onString
+	 *            String to be shown in on state
+	 */
 	public void setOnString(String onString) {
 		setText(onString);
 	}
@@ -138,8 +161,34 @@ public class BIOSwitch extends JCheckBox {
 		return (offString == null) ? "" : offString;
 	}
 
+	/**
+	 * Sets the string for the switch in it's off state
+	 * 
+	 * @param onString
+	 *            String to be shown in off state
+	 */
 	public void setOffString(String offString) {
 		this.offString = offString;
 	}
 
+	public static void main(String[] args) throws MalformedURLException,
+			IOException {
+		JFrame disp = new JFrame();
+		disp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		disp.setMinimumSize(new Dimension(300, 200));
+		JPanel p = new JPanel();
+		disp.add(p, BorderLayout.CENTER);
+		p.setLayout(new FlowLayout());
+
+		BIOSwitch comp = new BIOSwitch("On");
+		comp.setOffString("Off");
+		comp.setSelected(true);
+		p.add(comp);
+		BIOSwitch comp2 = new BIOSwitch("Test2");
+		comp2.setOffString("Off");
+		p.add(comp2);
+
+		disp.pack();
+		disp.setVisible(true);
+	}
 }

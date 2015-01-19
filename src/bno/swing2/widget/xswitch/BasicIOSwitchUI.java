@@ -7,6 +7,9 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Insets;
 import java.awt.RenderingHints;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 import static java.awt.Toolkit.getDefaultToolkit;
 
 import javax.swing.JComponent;
@@ -22,12 +25,49 @@ public class BasicIOSwitchUI extends IOSwitchUI {
 	private static final double SWITCH_WIDTH = 0.5;
 	private static final double SWITCH_WIDTH_EXPANDED = 0.7;
 
+	private MouseAdapter ml;
+
+	public BasicIOSwitchUI() {
+
+		create();
+	}
+
+	private void create() {
+
+		createListener();
+	}
+
+	private void createListener() {
+
+		ml = new MouseAdapter() {
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+
+				Object source = e.getSource();
+
+				if (source instanceof BIOSwitch) {
+
+					BIOSwitch c = (BIOSwitch) source;
+					clickEvent(c);
+				}
+			}
+		};
+	}
+
+	protected void clickEvent(BIOSwitch c) {
+
+		c.setSelected(!c.isSelected());
+	}
+
 	public void installUI(BIOSwitch c) {
 
+		c.addMouseListener(ml);
 	}
 
 	public void uninstallUI(BIOSwitch c) {
 
+		c.removeMouseListener(ml);
 	}
 
 	@Override
