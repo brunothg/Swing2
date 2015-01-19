@@ -34,6 +34,7 @@ public class BHexColorChooserWidget extends JComponent {
 		super.setUI(ui);
 	}
 
+	@Override
 	public void updateUI() {
 		if (UIManager.get(getUIClassID()) != null) {
 			setUI((BHexColorChooserWidgetUI) UIManager.getUI(this));
@@ -46,6 +47,7 @@ public class BHexColorChooserWidget extends JComponent {
 		return (BHexColorChooserWidgetUI) ui;
 	}
 
+	@Override
 	public String getUIClassID() {
 		return uiClassID;
 	}

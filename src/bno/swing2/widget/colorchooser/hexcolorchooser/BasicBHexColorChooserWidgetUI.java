@@ -47,6 +47,7 @@ public class BasicBHexColorChooserWidgetUI extends BHexColorChooserWidgetUI {
 		return new BasicBHexColorChooserWidgetUI();
 	}
 
+	@Override
 	public void installUI(JComponent c) {
 		installUI((BHexColorChooserWidget) c);
 	}
@@ -59,6 +60,7 @@ public class BasicBHexColorChooserWidgetUI extends BHexColorChooserWidgetUI {
 		c.addMouseMotionListener(createMouseMotionListener(c));
 	}
 
+	@Override
 	public void uninstallUI(JComponent c) {
 		uninstallUI((BHexColorChooserWidget) c);
 	}

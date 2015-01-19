@@ -104,4 +104,11 @@ public class BColor extends Color {
 			super(s);
 		}
 	}
+
+	public BColor grayValue() {
+
+		int value = (getRed() + getGreen() + getBlue()) / 3;
+
+		return new BColor(value, value, value, getAlpha());
+	}
 }
