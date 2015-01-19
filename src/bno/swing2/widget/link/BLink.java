@@ -176,16 +176,6 @@ public class BLink extends JLabel {
 		}
 	}
 
-	public static void main(String[] args) throws URISyntaxException {
-		JFrame disp = new JFrame();
-		disp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		disp.add(new BLink(new URI("mailto", "test@gmx.de;peter@gmx.de", null)));
-
-		disp.pack();
-		disp.setVisible(true);
-	}
-
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	protected void underline(boolean underline) {
 
