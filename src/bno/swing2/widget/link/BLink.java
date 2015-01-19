@@ -129,8 +129,6 @@ public class BLink extends JLabel {
 
 	private void updateForegroundColor() {
 
-		System.out
-				.println("update " + isVisited() + " " + beforeOverColor != null);
 		if (beforeOverColor != null) {
 
 			if (isVisited()) {
