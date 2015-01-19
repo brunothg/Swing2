@@ -12,7 +12,7 @@ import javax.swing.JTextField;
 public class BTextField extends JTextField {
 
 	private static final long serialVersionUID = 1L;
-	private static final BColor DEF_COLOR_HINT = BColor.color("#aaaaaa");
+	private static final BColor DEF_COLOR_HINT = BColor.color("#999999");
 
 	private JLabel hint;
 	private boolean ignoreHintFocus;
@@ -48,6 +48,7 @@ public class BTextField extends JTextField {
 	private void create() {
 
 		setIgnoreHintFocus(false);
+		setIgnoreRepaint(false);
 
 		hint = new JLabel();
 		hint.setOpaque(false);
