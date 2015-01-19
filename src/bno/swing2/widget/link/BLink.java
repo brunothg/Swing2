@@ -9,10 +9,8 @@ import java.awt.event.MouseEvent;
 import java.awt.font.TextAttribute;
 import java.io.IOException;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.Map;
 
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 /**

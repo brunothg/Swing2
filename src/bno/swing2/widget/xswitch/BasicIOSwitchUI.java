@@ -1,5 +1,7 @@
 package bno.swing2.widget.xswitch;
 
+import static java.awt.Toolkit.getDefaultToolkit;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FontMetrics;
@@ -9,8 +11,6 @@ import java.awt.Insets;
 import java.awt.RenderingHints;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
-import static java.awt.Toolkit.getDefaultToolkit;
 
 import javax.swing.JComponent;
 import javax.swing.plaf.ComponentUI;
