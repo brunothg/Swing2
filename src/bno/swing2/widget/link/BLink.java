@@ -9,8 +9,10 @@ import java.awt.event.MouseEvent;
 import java.awt.font.TextAttribute;
 import java.io.IOException;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Map;
 
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 /**
@@ -162,12 +164,26 @@ public class BLink extends JLabel {
 
 			Desktop desktop = Desktop.getDesktop();
 
-			if (desktop.isSupported(Desktop.Action.BROWSE)) {
+			if (link.getScheme().equalsIgnoreCase("mailto")
+					&& desktop.isSupported(Desktop.Action.MAIL)) {
+
+				desktop.mail(link);
+			} else if (desktop.isSupported(Desktop.Action.BROWSE)) {
 
 				desktop.browse(link);
 			}
 
 		}
+	}
+
+	public static void main(String[] args) throws URISyntaxException {
+		JFrame disp = new JFrame();
+		disp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		disp.add(new BLink(new URI("mailto", "test@gmx.de;peter@gmx.de", null)));
+
+		disp.pack();
+		disp.setVisible(true);
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
