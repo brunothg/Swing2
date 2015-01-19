@@ -64,6 +64,14 @@ public class BIOSwitch extends JCheckBox {
 		create();
 	}
 
+	public BIOSwitch(String onString, String offString) {
+
+		super(onString);
+
+		create();
+		setOffString(offString);
+	}
+
 	public BIOSwitch(String text, boolean selected) {
 
 		super(text, selected);
