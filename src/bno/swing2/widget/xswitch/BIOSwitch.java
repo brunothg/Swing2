@@ -16,6 +16,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.border.Border;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import bno.swing2.widget.BColor;
 
@@ -188,13 +190,23 @@ public class BIOSwitch extends JCheckBox {
 		disp.add(p, BorderLayout.CENTER);
 		p.setLayout(new FlowLayout());
 
-		BIOSwitch comp = new BIOSwitch("On");
+		final BIOSwitch comp = new BIOSwitch("On");
 		comp.setOffString("Off");
 		comp.setSelected(true);
 		p.add(comp);
-		BIOSwitch comp2 = new BIOSwitch("Test2");
+
+		final BIOSwitch comp2 = new BIOSwitch("Test2");
 		comp2.setOffString("Off");
 		p.add(comp2);
+
+		comp.addChangeListener(new ChangeListener() {
+
+			@Override
+			public void stateChanged(ChangeEvent e) {
+
+				comp2.setEnabled(comp.isSelected());
+			}
+		});
 
 		disp.pack();
 		disp.setVisible(true);

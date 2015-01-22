@@ -15,6 +15,8 @@ import java.awt.event.MouseEvent;
 import javax.swing.JComponent;
 import javax.swing.plaf.ComponentUI;
 
+import bno.swing2.widget.BColor;
+
 public class BasicIOSwitchUI extends IOSwitchUI {
 
 	private static final int FONT_BORDER_X = (int) (getDefaultToolkit()
@@ -49,6 +51,7 @@ public class BasicIOSwitchUI extends IOSwitchUI {
 				if (source instanceof BIOSwitch) {
 
 					BIOSwitch c = (BIOSwitch) source;
+
 					clickEvent(c);
 				}
 			}
@@ -57,6 +60,9 @@ public class BasicIOSwitchUI extends IOSwitchUI {
 
 	protected void clickEvent(BIOSwitch c) {
 
+		if (!c.isEnabled()) {
+			return;
+		}
 		c.setSelected(!c.isSelected());
 	}
 
@@ -82,6 +88,15 @@ public class BasicIOSwitchUI extends IOSwitchUI {
 
 	}
 
+	private Color getColor(Color col, BIOSwitch c) {
+
+		if (!c.isEnabled()) {
+			return new BColor(col).grayValue().invertRGB();
+		}
+
+		return col;
+	}
+
 	private void paint(Graphics g, BIOSwitch c) {
 
 		Insets insets = c.getInsets();
@@ -89,10 +104,10 @@ public class BasicIOSwitchUI extends IOSwitchUI {
 		int width = c.getWidth();
 		int height = c.getHeight();
 
-		Color foreground = c.getForeground();
-		Color background = c.getBackground();
-		Color onColor = c.getOnColor();
-		Color offColor = c.getOffColor();
+		Color foreground = getColor(c.getForeground(), c);
+		Color background = getColor(c.getBackground(), c);
+		Color onColor = getColor(c.getOnColor(), c);
+		Color offColor = getColor(c.getOffColor(), c);
 
 		paintBackground(g, insets, width, height, background);
 		paintSwitch(g, c, insets, width, height, foreground, onColor, offColor,
