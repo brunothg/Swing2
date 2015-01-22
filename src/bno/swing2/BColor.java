@@ -1,4 +1,4 @@
-package bno.swing2.widget;
+package bno.swing2;
 
 import java.awt.Color;
 
@@ -20,6 +20,10 @@ public class BColor extends Color {
 
 	public BColor(int rgb) {
 		super(rgb);
+	}
+
+	public BColor(int rgb, boolean hasalpha) {
+		super(rgb, hasalpha);
 	}
 
 	public BColor invertRGB() {
@@ -111,4 +115,5 @@ public class BColor extends Color {
 
 		return new BColor(value, value, value, getAlpha());
 	}
+
 }

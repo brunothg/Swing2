@@ -9,7 +9,7 @@ import java.awt.event.MouseMotionListener;
 import javax.swing.JComponent;
 import javax.swing.plaf.ComponentUI;
 
-import bno.swing2.widget.BColor;
+import bno.swing2.BColor;
 
 public class BasicBGradientColorChooserWidgetUI extends
 		BGradientColorChooserWidgetUI {

@@ -13,7 +13,7 @@ import java.awt.image.BufferedImage;
 import javax.swing.JComponent;
 import javax.swing.plaf.ComponentUI;
 
-import bno.swing2.widget.BColor;
+import bno.swing2.BColor;
 import bno.swing2.widget.BGraphics2D;
 
 public class BasicBHexColorChooserWidgetUI extends BHexColorChooserWidgetUI {

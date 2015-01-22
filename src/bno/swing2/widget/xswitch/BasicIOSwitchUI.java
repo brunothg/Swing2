@@ -16,7 +16,8 @@ import javax.swing.Icon;
 import javax.swing.JComponent;
 import javax.swing.plaf.ComponentUI;
 
-import bno.swing2.widget.BColor;
+import bno.swing2.BColor;
+import bno.swing2.IconUtils;
 
 public class BasicIOSwitchUI extends IOSwitchUI {
 
@@ -98,6 +99,15 @@ public class BasicIOSwitchUI extends IOSwitchUI {
 		return col;
 	}
 
+	private Icon getIcon(Icon ico, BIOSwitch c) {
+
+		if (!c.isEnabled()) {
+			return IconUtils.invertRGB(IconUtils.getGrayScale(ico));
+		}
+
+		return ico;
+	}
+
 	private void paint(Graphics g, BIOSwitch c) {
 
 		Insets insets = c.getInsets();
@@ -155,8 +165,9 @@ public class BasicIOSwitchUI extends IOSwitchUI {
 	private Icon paintIcon(Graphics g, BIOSwitch c, boolean selected,
 			int x_start, int x_end, int x_end2, int y_start, int y_end) {
 
-		Icon ico = (selected) ? c.getSelectedIcon() : c
-				.getDisabledSelectedIcon();
+		Icon ico = getIcon(
+				(selected) ? c.getSelectedIcon() : c.getDisabledSelectedIcon(),
+				c);
 
 		if (ico == null) {
 			return null;

@@ -7,7 +7,7 @@ import java.awt.event.KeyEvent;
 import javax.swing.Icon;
 import javax.swing.colorchooser.AbstractColorChooserPanel;
 
-import bno.swing2.widget.BColor;
+import bno.swing2.BColor;
 import bno.swing2.widget.colorchooser.gradient.BGradientColorChooserWidget;
 import bno.swing2.widget.colorchooser.hexcolorchooser.BHexColorChooserWidget;
 

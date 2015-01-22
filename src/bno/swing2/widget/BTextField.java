@@ -9,6 +9,8 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import bno.swing2.BColor;
+
 public class BTextField extends JTextField {
 
 	private static final long serialVersionUID = 1L;

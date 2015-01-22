@@ -22,7 +22,7 @@ import javax.swing.border.Border;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import bno.swing2.widget.BColor;
+import bno.swing2.BColor;
 
 public class BIOSwitch extends JCheckBox {
 
@@ -219,6 +219,8 @@ public class BIOSwitch extends JCheckBox {
 		p.add(comp);
 
 		final BIOSwitch comp2 = new BIOSwitch("Test2");
+		comp2.setDisabledSelectedIcon(new ImageIcon(ImageIO.read(new File(
+				"C:/Users/Marvin Bruns/Desktop/Airport-icon.png"))));
 		comp2.setOffString("Off");
 		p.add(comp2);
 
