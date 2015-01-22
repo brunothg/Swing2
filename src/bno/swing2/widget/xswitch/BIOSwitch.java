@@ -1,26 +1,14 @@
 package bno.swing2.widget.xswitch;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.io.File;
-import java.io.IOException;
-import java.net.MalformedURLException;
 
-import javax.imageio.ImageIO;
 import javax.swing.Action;
 import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.border.Border;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import bno.swing2.BColor;
 
@@ -198,42 +186,5 @@ public class BIOSwitch extends JCheckBox {
 	 */
 	public void setDisabledIcon(Icon disabledIcon) {
 		super.setDisabledSelectedIcon(disabledIcon);
-	}
-
-	public static void main(String[] args) throws MalformedURLException,
-			IOException {
-		JFrame disp = new JFrame();
-		disp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		disp.setMinimumSize(new Dimension(300, 200));
-		JPanel p = new JPanel();
-		disp.add(p, BorderLayout.CENTER);
-		p.setLayout(new FlowLayout());
-
-		final BIOSwitch comp = new BIOSwitch("Test");
-		comp.setOffString("TTT");
-		comp.setSelectedIcon(new ImageIcon(ImageIO.read(new File(
-				"C:/Users/Marvin Bruns/Desktop/Airport-icon.png"))));
-		comp.setDisabledSelectedIcon(new ImageIcon(ImageIO.read(new File(
-				"C:/Users/Marvin Bruns/Desktop/icon.png"))));
-		comp.setSelected(true);
-		p.add(comp);
-
-		final BIOSwitch comp2 = new BIOSwitch("Test2");
-		comp2.setDisabledSelectedIcon(new ImageIcon(ImageIO.read(new File(
-				"C:/Users/Marvin Bruns/Desktop/Airport-icon.png"))));
-		comp2.setOffString("Off");
-		p.add(comp2);
-
-		comp.addChangeListener(new ChangeListener() {
-
-			@Override
-			public void stateChanged(ChangeEvent e) {
-
-				comp2.setEnabled(comp.isSelected());
-			}
-		});
-
-		disp.pack();
-		disp.setVisible(true);
 	}
 }
