@@ -6,11 +6,14 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 
+import javax.imageio.ImageIO;
 import javax.swing.Action;
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -113,6 +116,8 @@ public class BIOSwitch extends JCheckBox {
 		setBackground(DEF_COLOR_BACKGROUND);
 		setOnColor(DEF_COLOR_ON);
 		setOffColor(DEF_COLOR_OFF);
+		setSelectedIcon(null);
+		setDisabledSelectedIcon(null);
 	}
 
 	@Override
@@ -181,6 +186,20 @@ public class BIOSwitch extends JCheckBox {
 		this.offString = offString;
 	}
 
+	/**
+	 * @see #setSelectedIcon(Icon)
+	 */
+	public void setIcon(Icon defaultIcon) {
+		super.setSelectedIcon(defaultIcon);
+	}
+
+	/**
+	 * @see #setDisabledSelectedIcon(Icon)
+	 */
+	public void setDisabledIcon(Icon disabledIcon) {
+		super.setDisabledSelectedIcon(disabledIcon);
+	}
+
 	public static void main(String[] args) throws MalformedURLException,
 			IOException {
 		JFrame disp = new JFrame();
@@ -190,8 +209,12 @@ public class BIOSwitch extends JCheckBox {
 		disp.add(p, BorderLayout.CENTER);
 		p.setLayout(new FlowLayout());
 
-		final BIOSwitch comp = new BIOSwitch("On");
-		comp.setOffString("Off");
+		final BIOSwitch comp = new BIOSwitch("Test");
+		comp.setOffString("TTT");
+		comp.setSelectedIcon(new ImageIcon(ImageIO.read(new File(
+				"C:/Users/Marvin Bruns/Desktop/Airport-icon.png"))));
+		comp.setDisabledSelectedIcon(new ImageIcon(ImageIO.read(new File(
+				"C:/Users/Marvin Bruns/Desktop/icon.png"))));
 		comp.setSelected(true);
 		p.add(comp);
 

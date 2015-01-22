@@ -12,6 +12,7 @@ import java.awt.RenderingHints;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.Icon;
 import javax.swing.JComponent;
 import javax.swing.plaf.ComponentUI;
 
@@ -146,8 +147,40 @@ public class BasicIOSwitchUI extends IOSwitchUI {
 		g.fillPolygon(new int[] { x_start, x_end2, x_end, x_start }, new int[] {
 				y_start, y_start, y_end, y_end }, 4);
 
+		paintIcon(g, c, selected, x_start, x_end, x_end2, y_start, y_end);
 		paintString(g, c, foreground, selected, x_start, x_end, x_end2,
 				y_start, y_end);
+	}
+
+	private Icon paintIcon(Graphics g, BIOSwitch c, boolean selected,
+			int x_start, int x_end, int x_end2, int y_start, int y_end) {
+
+		Icon ico = (selected) ? c.getSelectedIcon() : c
+				.getDisabledSelectedIcon();
+
+		if (ico == null) {
+			return null;
+		}
+
+		String text = ((selected) ? c.getOnString() : c.getOffString());
+		boolean isText = text != null && !text.isEmpty();
+
+		int x;
+		if (isText) {
+
+			x = (selected) ? x_start : x_start - ico.getIconWidth();
+			x += ((selected) ? 1 : -1) * FONT_BORDER_X * 0.5;
+		} else {
+
+			x = (int) ((selected) ? (x_start + x_end) * 0.5
+					: (x_start + x_end2) * 0.5);
+			x -= ico.getIconWidth() * 0.5;
+		}
+
+		ico.paintIcon(c, g, x,
+				(int) ((y_start + y_end) * 0.5 - ico.getIconHeight() * 0.5));
+
+		return ico;
 	}
 
 	private void paintString(Graphics g, BIOSwitch c, Color foreground,
@@ -155,6 +188,12 @@ public class BasicIOSwitchUI extends IOSwitchUI {
 			int y_end) {
 		g.setColor(foreground);
 		g.setFont(c.getFont());
+
+		Icon ico = (selected) ? c.getSelectedIcon() : c
+				.getDisabledSelectedIcon();
+
+		int icoGap = (int) ((ico == null) ? 0 : ico.getIconWidth()
+				+ c.getIconTextGap() + FONT_BORDER_X * 0.5);
 
 		FontMetrics metrics = g.getFontMetrics(c.getFont());
 		int ascent = metrics.getMaxAscent();
@@ -165,6 +204,7 @@ public class BasicIOSwitchUI extends IOSwitchUI {
 			int fontWidth = metrics.stringWidth(c.getOnString());
 
 			int x_pos = (int) (x_start + (x_end - x_start - fontWidth) * 0.5);
+			x_pos = (x_pos < icoGap) ? icoGap : x_pos;
 
 			g.drawString(c.getOnString(), x_pos, (int) ((y_start
 					+ ((y_end + 1 - y_start) * 0.5)
@@ -174,6 +214,8 @@ public class BasicIOSwitchUI extends IOSwitchUI {
 			int fontWidth = metrics.stringWidth(c.getOffString());
 
 			int x_pos = (int) (x_start + (x_end2 - x_start - fontWidth) * 0.5);
+			x_pos = (x_pos + fontWidth > x_start - icoGap) ? x_start - icoGap
+					- fontWidth : x_pos;
 
 			g.drawString(c.getOffString(), x_pos, (int) ((y_start
 					+ ((y_end + 1 - y_start) * 0.5)
@@ -193,10 +235,19 @@ public class BasicIOSwitchUI extends IOSwitchUI {
 		Insets insets = c.getInsets();
 		FontMetrics metrics = c.getFontMetrics(c.getFont());
 
+		Icon selectedIcon = c.getSelectedIcon();
+		Icon deselectedIcon = c.getDisabledSelectedIcon();
+
+		int iconWidth = Math.max(
+				((selectedIcon != null) ? selectedIcon.getIconWidth() : 0),
+				((deselectedIcon != null) ? deselectedIcon.getIconWidth() : 0));
+
 		int width = Math.max(metrics.stringWidth(c.getOnString()),
 				metrics.stringWidth(c.getOffString()));
+		width += iconWidth;
+		width += c.getIconTextGap();
 		width *= 2;
-		width += insets.left + insets.right + FONT_BORDER_X;
+		width += insets.left + insets.right + FONT_BORDER_X * 2;
 
 		int height = insets.top + insets.bottom + metrics.getMaxAscent()
 				+ metrics.getMaxDescent();
@@ -216,8 +267,9 @@ public class BasicIOSwitchUI extends IOSwitchUI {
 		return getMinimumSize((BIOSwitch) c);
 	}
 
+	@Override
 	public Dimension getMaximumSize(JComponent c) {
-		return null;
+		return getPreferredSize(c);
 	}
 
 	@Override
