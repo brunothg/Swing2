@@ -112,7 +112,7 @@ public class ExceptionDialog extends JDialog implements ActionListener {
 		btnOk.addActionListener(this);
 		buttonPanel.add(btnOk);
 
-		btnDetails = new JToggleButton("Show Details");
+		btnDetails = new JToggleButton("Details anzeigen");
 		btnDetails.addActionListener(this);
 		buttonPanel.add(btnDetails);
 
@@ -177,6 +177,8 @@ public class ExceptionDialog extends JDialog implements ActionListener {
 		dialog.setModalityType(ModalityType.APPLICATION_MODAL);
 		dialog.setTitle(title);
 		dialog.setMessage(message);
+
+		dialog.setLocationRelativeTo(owner);
 
 		dialog.setVisible(true);
 	}
