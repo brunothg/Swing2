@@ -20,6 +20,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JToggleButton;
 
+import bno.swing2.utils.Null;
+
 /**
  * Ein Dialog zum Anzeigen von geworfenen {@link Throwable}s
  */
@@ -41,10 +43,22 @@ public class ExceptionDialog extends JDialog implements ActionListener {
 		pack();
 	}
 
+	@Override
+	public void pack() {
+		super.pack();
+
+		Dimension maximumSize = getMaximumSize();
+		Dimension size = getSize();
+
+		setSize(Math.min(size.width, maximumSize.width),
+				Math.min(size.height, maximumSize.height));
+	}
+
 	private void createGui() {
 
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setMinimumSize(new Dimension(400, 0));
+		setMaximumSize(new Dimension(600, 450));
 		setTitle(null);
 
 		setLayout(new BorderLayout());
@@ -122,20 +136,21 @@ public class ExceptionDialog extends JDialog implements ActionListener {
 	@Override
 	public void setTitle(String title) {
 
-		super.setTitle((title == null) ? "An error occoured" : title);
+		super.setTitle(Null.nvl(title, "Ein Fehler ist aufgetreten"));
 	}
 
 	public void setMessage(String message) {
 
-		String msg = (message == null) ? ((throwable == null) ? "Unknown error"
-				: throwable.getMessage()) : message;
+		String msg = Null.nvl(Null.nvl(message, throwable.getMessage()),
+				"Unbekannter Fehler");
 
 		lblMessage.setText(msg);
 	}
 
 	private void fireSwitchDetailsEvent(boolean showDetails) {
 
-		btnDetails.setText((showDetails) ? "Hide Details" : "Show Detials");
+		btnDetails.setText((showDetails) ? "Details verbergen"
+				: "Details anzeigen");
 		detailInfoPanel.setVisible(showDetails);
 
 		pack();
