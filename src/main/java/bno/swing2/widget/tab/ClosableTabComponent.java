@@ -29,7 +29,6 @@ public class ClosableTabComponent extends JPanel implements ActionListener {
 		this.component = component;
 
 		createGui();
-		setClosable(component.isClosable());
 	}
 
 	private void createGui() {
@@ -41,7 +40,7 @@ public class ClosableTabComponent extends JPanel implements ActionListener {
 		lblTitle.setOpaque(false);
 		add(lblTitle, BorderLayout.CENTER);
 
-		btnClose = new JButton("✖");
+		btnClose = new JButton("\u2716");
 		btnClose.setOpaque(false);
 		btnClose.setBorder(BorderFactory.createEmptyBorder(2, 5, 2, 2));
 		btnClose.setBorderPainted(true);
@@ -111,7 +110,7 @@ public class ClosableTabComponent extends JPanel implements ActionListener {
 
 		if (source == btnClose) {
 
-			fireClosedEvent();
+			close();
 		}
 	}
 

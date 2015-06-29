@@ -8,7 +8,7 @@ import bno.swing2.utils.Null;
 /**
  * Tab inside of {@link ApplicationTabPanel}.
  */
-public abstract class ApplicationTab extends JPanel {
+public class ApplicationTab extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
@@ -71,6 +71,7 @@ public abstract class ApplicationTab extends JPanel {
 
 	public void setTabComponent(ClosableTabComponent tabComponent) {
 		this.tabComponent = tabComponent;
+		tabComponent.setClosable(isClosable());
 	}
 
 }
