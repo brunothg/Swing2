@@ -11,6 +11,13 @@ import javax.swing.JTextField;
 
 import bno.swing2.BColor;
 
+/**
+ * A text field that can show a hint inside the text field itself (Like
+ * placeholder of HTML input).
+ * 
+ * @author Marvin Bruns
+ *
+ */
 public class BTextField extends JTextField {
 
 	private static final long serialVersionUID = 1L;

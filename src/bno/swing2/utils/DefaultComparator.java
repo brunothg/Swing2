@@ -2,6 +2,13 @@ package bno.swing2.utils;
 
 import java.util.Comparator;
 
+/**
+ * compares the object's string representation
+ * 
+ * @author Marvin Bruns
+ *
+ * @param <T>
+ */
 public class DefaultComparator<T> implements Comparator<T> {
 
 	@Override

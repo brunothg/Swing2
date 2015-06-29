@@ -23,7 +23,7 @@ import javax.swing.JToggleButton;
 import bno.swing2.utils.Null;
 
 /**
- * Ein Dialog zum Anzeigen von geworfenen {@link Throwable}s
+ * A dialog for displaying {@link Throwable}s
  */
 public class ExceptionDialog extends JDialog implements ActionListener {
 
@@ -126,7 +126,7 @@ public class ExceptionDialog extends JDialog implements ActionListener {
 		btnOk.addActionListener(this);
 		buttonPanel.add(btnOk);
 
-		btnDetails = new JToggleButton("Details anzeigen");
+		btnDetails = new JToggleButton("Show details");
 		btnDetails.addActionListener(this);
 		buttonPanel.add(btnDetails);
 
@@ -136,21 +136,20 @@ public class ExceptionDialog extends JDialog implements ActionListener {
 	@Override
 	public void setTitle(String title) {
 
-		super.setTitle(Null.nvl(title, "Ein Fehler ist aufgetreten"));
+		super.setTitle(Null.nvl(title, "An error occoured"));
 	}
 
 	public void setMessage(String message) {
 
 		String msg = Null.nvl(Null.nvl(message, throwable.getMessage()),
-				"Unbekannter Fehler");
+				"Unknown Error");
 
 		lblMessage.setText(msg);
 	}
 
 	private void fireSwitchDetailsEvent(boolean showDetails) {
 
-		btnDetails.setText((showDetails) ? "Details verbergen"
-				: "Details anzeigen");
+		btnDetails.setText((showDetails) ? "Hide details" : "Show details");
 		detailInfoPanel.setVisible(showDetails);
 
 		pack();

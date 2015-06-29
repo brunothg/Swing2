@@ -122,18 +122,6 @@ public class BColorChooser extends JColorChooser {
 			ActionListener okListener, ActionListener cancelListener)
 			throws HeadlessException {
 
-		// Window window = JOptionPane.getWindowForComponent(c);
-		// ColorChooserDialog dialog;
-		// if (window instanceof Frame) {
-		// dialog = new ColorChooserDialog((Frame) window, title, modal, c,
-		// chooserPane, okListener, cancelListener);
-		// } else {
-		// dialog = new ColorChooserDialog((Dialog) window, title, modal, c,
-		// chooserPane, okListener, cancelListener);
-		// }
-		// dialog.getAccessibleContext().setAccessibleDescription(title);
-		// return dialog;
-
 		final Color initialColor = chooserPane.getColor();
 
 		Window window = getWindowForComponent(c);
