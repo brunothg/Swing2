@@ -2,22 +2,21 @@ package bno.swing2.utils;
 
 /**
  * 
- * Hilfsklasse mit Methoden für den Umgang mit null Werten.
+ * Helper class for null values
  */
-public class Null
-{
+public class Null {
 
 	/**
-	 * Testet auf null value und ersetzt den Wert ggf.
+	 * Test if it is a null value and replace it
 	 * 
-	 * @param test Wert zum Überprüfen
-	 * @param replace Ersatzwert
+	 * @param test
+	 *            Test value
+	 * @param replace
+	 *            Replace value
 	 */
-	public static <T> T nvl(T test, T replace)
-	{
+	public static <T> T nvl(T test, T replace) {
 
-		if (test == null)
-		{
+		if (test == null) {
 
 			return replace;
 		}
@@ -26,16 +25,13 @@ public class Null
 	}
 
 	/**
-	 * Überprüft, ob mindestens ein Wert null ist.
+	 * Test if at least one value is null
 	 */
-	public static boolean isAnyNull(Object... objs)
-	{
+	public static boolean isAnyNull(Object... objs) {
 
-		for (int i = 0; i < objs.length; i++)
-		{
+		for (int i = 0; i < objs.length; i++) {
 
-			if (objs[i] == null)
-			{
+			if (objs[i] == null) {
 
 				return true;
 			}
@@ -45,16 +41,13 @@ public class Null
 	}
 
 	/**
-	 * Überprüft, ob mindestens einer der Strings null oder empty ist.
+	 * Test if at least one string is empty or null
 	 */
-	public static boolean isAnyEmpty(String... strings)
-	{
+	public static boolean isAnyEmpty(String... strings) {
 
-		for (int i = 0; i < strings.length; i++)
-		{
+		for (int i = 0; i < strings.length; i++) {
 
-			if (strings[i] == null || strings[i].isEmpty())
-			{
+			if (strings[i] == null || strings[i].isEmpty()) {
 
 				return true;
 			}
@@ -64,16 +57,13 @@ public class Null
 	}
 
 	/**
-	 * Überprüft, ob alle Werte null sind.
+	 * Test if all values are null
 	 */
-	public static boolean isNull(Object... objs)
-	{
+	public static boolean isNull(Object... objs) {
 
-		for (int i = 0; i < objs.length; i++)
-		{
+		for (int i = 0; i < objs.length; i++) {
 
-			if (objs[i] != null)
-			{
+			if (objs[i] != null) {
 
 				return false;
 			}
@@ -83,16 +73,13 @@ public class Null
 	}
 
 	/**
-	 * Überprüft, ob alle Werte ungleic null sind.
+	 * Test if all values aren't null
 	 */
-	public static boolean isNotNull(Object... objs)
-	{
+	public static boolean isNotNull(Object... objs) {
 
-		for (int i = 0; i < objs.length; i++)
-		{
+		for (int i = 0; i < objs.length; i++) {
 
-			if (objs[i] == null)
-			{
+			if (objs[i] == null) {
 
 				return false;
 			}

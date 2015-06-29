@@ -2,7 +2,6 @@ package bno.swing2.dialog;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Window;
@@ -19,6 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JToggleButton;
+import javax.swing.SwingUtilities;
 
 import bno.swing2.utils.Null;
 
@@ -28,6 +28,11 @@ import bno.swing2.utils.Null;
 public class ExceptionDialog extends JDialog implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
+
+	private static String okText = "OK";
+	private static String showDetailsText = "Show details";
+	private static String hideDetailsText = "Hide details";
+
 	private Throwable throwable;
 	private JLabel lblMessage;
 	private JButton btnOk;
@@ -122,11 +127,11 @@ public class ExceptionDialog extends JDialog implements ActionListener {
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
-		btnOk = new JButton("OK");
+		btnOk = new JButton(okText);
 		btnOk.addActionListener(this);
 		buttonPanel.add(btnOk);
 
-		btnDetails = new JToggleButton("Show details");
+		btnDetails = new JToggleButton(showDetailsText);
 		btnDetails.addActionListener(this);
 		buttonPanel.add(btnDetails);
 
@@ -147,9 +152,19 @@ public class ExceptionDialog extends JDialog implements ActionListener {
 		lblMessage.setText(msg);
 	}
 
+	public static void setTexts(String okText, String hideDetailsText,
+			String showDetailsText) {
+
+		ExceptionDialog.okText = Null.nvl(okText, ExceptionDialog.okText);
+		ExceptionDialog.hideDetailsText = Null.nvl(hideDetailsText,
+				ExceptionDialog.hideDetailsText);
+		ExceptionDialog.showDetailsText = Null.nvl(showDetailsText,
+				ExceptionDialog.showDetailsText);
+	}
+
 	private void fireSwitchDetailsEvent(boolean showDetails) {
 
-		btnDetails.setText((showDetails) ? "Hide details" : "Show details");
+		btnDetails.setText((showDetails) ? hideDetailsText : showDetailsText);
 		detailInfoPanel.setVisible(showDetails);
 
 		pack();
@@ -205,29 +220,8 @@ public class ExceptionDialog extends JDialog implements ActionListener {
 	public static void showExceptionDialog(Component owner, String title,
 			String message, Throwable throwable) {
 
-		showExceptionDialog(getWindowOfComponent(owner), title, message,
-				throwable);
-	}
-
-	private static Window getWindowOfComponent(Component owner) {
-
-		if (owner == null) {
-			return null;
-		}
-
-		Container parent;
-		while (!(owner instanceof Window)
-				&& (parent = owner.getParent()) != null) {
-			owner = parent;
-		}
-
-		if (owner instanceof Window) {
-
-			return (Window) owner;
-		} else {
-
-			return null;
-		}
+		showExceptionDialog(SwingUtilities.windowForComponent(owner), title,
+				message, throwable);
 	}
 
 }
