@@ -1,9 +1,11 @@
-package bno.swing2;
+package bno.swing2.utils;
 
 import java.awt.image.BufferedImage;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+
+import bno.swing2.BColor;
 
 public class IconUtils {
 

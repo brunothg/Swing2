@@ -17,7 +17,7 @@ import javax.swing.JComponent;
 import javax.swing.plaf.ComponentUI;
 
 import bno.swing2.BColor;
-import bno.swing2.IconUtils;
+import bno.swing2.utils.IconUtils;
 
 public class BasicIOSwitchUI extends IOSwitchUI {
 
