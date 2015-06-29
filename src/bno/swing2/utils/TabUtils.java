@@ -40,8 +40,10 @@ public class TabUtils {
 	}
 
 	/**
-	 * Öffnet einen neuen Tab in der angegebenen {@link JTabbedPane}. Active
-	 * gibt an, ob der Tab der neue Sichtbare Tab werden soll.
+	 * Open new Tab for {@link JTabbedPane}.
+	 * 
+	 * @param active
+	 *            Tells, if the new tab should be the active one
 	 */
 	public static void openNewTab(ApplicationTab tab, JTabbedPane tp,
 			boolean active) {

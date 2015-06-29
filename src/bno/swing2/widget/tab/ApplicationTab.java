@@ -6,7 +6,7 @@ import bno.swing2.exception.NotClosableException;
 import bno.swing2.utils.Null;
 
 /**
- * Tab innerhalb eines {@link ApplicationTabPanel}.
+ * Tab inside of {@link ApplicationTabPanel}.
  */
 public abstract class ApplicationTab extends JPanel {
 
@@ -17,10 +17,10 @@ public abstract class ApplicationTab extends JPanel {
 	private ClosableTabComponent tabComponent;
 
 	/**
-	 * Schließt den Tab. Wenn {@link #setTabComponent(ClosableTabComponent)}
-	 * nicht aufgerufen wurde, kann der Tab nicht geschlossen werden und eine
-	 * {@link NotClosableException} wird geworfen wird zurück gegeben. Wenn
-	 * {@link #isClosable()} false liefert, schlägt dieser Aufrauf auch fehl.
+	 * Closes this tab. If {@link #setTabComponent(ClosableTabComponent)} was
+	 * not called, the tab can not be closed an a {@link NotClosableException}
+	 * will be thrown. If {@link #isClosable()} results in false value, this
+	 * call will fail either.
 	 */
 	public void closeTab() throws NotClosableException {
 
@@ -37,7 +37,7 @@ public abstract class ApplicationTab extends JPanel {
 	}
 
 	/**
-	 * Der Titel des Tabs oder {@link #getName()}
+	 * The title of the tab or {@link #getName()}
 	 */
 	public String getTitle() {
 
@@ -49,7 +49,7 @@ public abstract class ApplicationTab extends JPanel {
 	}
 
 	/**
-	 * Überprüft, ob der Tab schließbar sein soll.
+	 * Check if this tab is closable
 	 */
 	public boolean isClosable() {
 
@@ -70,9 +70,9 @@ public abstract class ApplicationTab extends JPanel {
 	}
 
 	/**
-	 * Wird aufgerufen, wenn der Tab geschlossen wurde
+	 * Is called when the tab is closed
 	 */
-	public void closed() {
+	protected void closed() {
 	}
 
 }
