@@ -59,6 +59,10 @@ public abstract class ApplicationTab extends JPanel {
 	public void setClosable(boolean closable) {
 
 		this.closable = closable;
+
+		if (tabComponent != null) {
+			tabComponent.setClosable(closable);
+		}
 	}
 
 	public ClosableTabComponent getTabComponent() {
@@ -67,12 +71,6 @@ public abstract class ApplicationTab extends JPanel {
 
 	public void setTabComponent(ClosableTabComponent tabComponent) {
 		this.tabComponent = tabComponent;
-	}
-
-	/**
-	 * Is called when the tab is closed
-	 */
-	protected void closed() {
 	}
 
 }

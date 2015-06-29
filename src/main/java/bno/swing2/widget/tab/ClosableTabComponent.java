@@ -29,6 +29,7 @@ public class ClosableTabComponent extends JPanel implements ActionListener {
 		this.component = component;
 
 		createGui();
+		setClosable(component.isClosable());
 	}
 
 	private void createGui() {
@@ -40,13 +41,12 @@ public class ClosableTabComponent extends JPanel implements ActionListener {
 		lblTitle.setOpaque(false);
 		add(lblTitle, BorderLayout.CENTER);
 
-		btnClose = new JButton("X");
+		btnClose = new JButton("✖");
 		btnClose.setOpaque(false);
 		btnClose.setBorder(BorderFactory.createEmptyBorder(2, 5, 2, 2));
 		btnClose.setBorderPainted(true);
 		btnClose.setContentAreaFilled(false);
 		btnClose.addActionListener(this);
-		btnClose.setForeground(Color.RED);
 		add(btnClose, BorderLayout.EAST);
 	}
 
@@ -55,24 +55,53 @@ public class ClosableTabComponent extends JPanel implements ActionListener {
 		lblTitle.setText(title);
 	}
 
-	public void close() {
+	public void setClosable(boolean closable) {
 
-		fireCloseEvent();
+		btnClose.setEnabled(closable);
 	}
 
-	private void fireCloseEvent() {
+	public boolean isClosabel() {
 
-		if (component instanceof ApplicationTab) {
+		return btnClose.isEnabled();
+	}
 
-			ApplicationTab appTab = (ApplicationTab) component;
-			if (!appTab.isClosable()) {
-				return;
-			}
+	public void setCloseChar(char c) {
 
-			appTab.closed();
-		}
+		btnClose.setText("" + c);
+	}
+
+	public char getCloseChar() {
+
+		return btnClose.getText().charAt(0);
+	}
+
+	public void setCloseColor(Color c) {
+
+		btnClose.setForeground(c);
+	}
+
+	public Color getCloseColor() {
+
+		return btnClose.getForeground();
+	}
+
+	public void close() {
+
+		fireCloseingEvent();
 
 		tabbedPane.remove(component);
+
+		fireClosedEvent();
+	}
+
+	public void addCloseListener(CloseListener l) {
+
+		listenerList.add(CloseListener.class, l);
+	}
+
+	public void removeCloseListener(CloseListener l) {
+
+		listenerList.remove(CloseListener.class, l);
 	}
 
 	@Override
@@ -82,7 +111,27 @@ public class ClosableTabComponent extends JPanel implements ActionListener {
 
 		if (source == btnClose) {
 
-			fireCloseEvent();
+			fireClosedEvent();
+		}
+	}
+
+	private void fireCloseingEvent() {
+
+		CloseListener[] listeners = listenerList
+				.getListeners(CloseListener.class);
+		for (CloseListener listener : listeners) {
+
+			listener.closing(this);
+		}
+	}
+
+	private void fireClosedEvent() {
+
+		CloseListener[] listeners = listenerList
+				.getListeners(CloseListener.class);
+		for (CloseListener listener : listeners) {
+
+			listener.closed(this);
 		}
 	}
 }
