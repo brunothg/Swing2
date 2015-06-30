@@ -16,7 +16,7 @@ public class DefaultObjectTableModel<T> extends AbstractTableModel {
 	private Vector<T> rows = new Vector<T>();
 	private Class<T> type;
 
-	private Column[] columns;
+	private ObjectColumn<T>[] columns;
 
 	public DefaultObjectTableModel(Class<T> type) {
 
@@ -25,42 +25,48 @@ public class DefaultObjectTableModel<T> extends AbstractTableModel {
 		initialize();
 	}
 
+	@SuppressWarnings("unchecked")
 	private void initialize() {
 
-		List<Column> columns = new LinkedList<Column>();
+		List<ObjectColumn<T>> columns = new LinkedList<ObjectColumn<T>>();
 
+		// Search fields
 		Field[] fields = type.getDeclaredFields();
 		for (Field field : fields) {
 			for (Annotation annotation : field.getDeclaredAnnotations()) {
 				if (annotation instanceof Column) {
-					Column column = (Column) annotation;
-					if (column.index() < 0) {
+					Column _column = (Column) annotation;
+					ObjectColumn<T> column = new FieldColumn<T>(_column, field);
+					if (_column.index() < 0) {
 						columns.add(column);
 					} else {
-						columns.add(column.index(), column);
+						columns.add(_column.index(), column);
 					}
 				}
 			}
 		}
 
+		// Search methods
 		Method[] methods = type.getDeclaredMethods();
 		for (Method method : methods) {
 			for (Annotation annotation : method.getDeclaredAnnotations()) {
 				if (annotation instanceof Column) {
-					Column column = (Column) annotation;
-					if (column.index() < 0) {
+					Column _column = (Column) annotation;
+					ObjectColumn<T> column = new MethodColumn<T>(_column,
+							method);
+					if (_column.index() < 0) {
 						columns.add(column);
 					} else {
-						columns.add(column.index(), column);
+						columns.add(_column.index(), column);
 					}
 				}
 			}
 		}
 
-		this.columns = columns.toArray(new Column[columns.size()]);
+		this.columns = columns.toArray(new ObjectColumn[columns.size()]);
 	}
 
-	protected Column getColumn(int columnIndex) {
+	protected ObjectColumn<T> getColumn(int columnIndex) {
 
 		return columns[columnIndex];
 	}
@@ -68,7 +74,7 @@ public class DefaultObjectTableModel<T> extends AbstractTableModel {
 	@Override
 	public String getColumnName(int columnIndex) {
 
-		return getColumn(columnIndex).value();
+		return getColumn(columnIndex).getName();
 	}
 
 	@Override
@@ -91,8 +97,8 @@ public class DefaultObjectTableModel<T> extends AbstractTableModel {
 
 	@Override
 	public Class<?> getColumnClass(int columnIndex) {
-		// TODO getColumnClass
-		return super.getColumnClass(columnIndex);
+
+		return getColumn(columnIndex).getType();
 	}
 
 	@Override
@@ -180,6 +186,92 @@ public class DefaultObjectTableModel<T> extends AbstractTableModel {
 	 */
 	public T removeRow(int rowIndex) {
 
-		return rows.remove(rowIndex);
+		T removed = rows.remove(rowIndex);
+
+		fireTableRowsDeleted(rowIndex, rowIndex);
+		return removed;
+	}
+
+	protected static abstract class ObjectColumn<T> {
+
+		private String name;
+		private Class<?> type;
+		private boolean editable;
+
+		public ObjectColumn(Column column) {
+
+			this.name = column.value();
+			this.editable = column.editable();
+		}
+
+		public String getName() {
+			return name;
+		}
+
+		public void setName(String name) {
+			this.name = name;
+		}
+
+		public Class<?> getType() {
+			return type;
+		}
+
+		public void setType(Class<?> type) {
+			this.type = type;
+		}
+
+		public abstract Object getValue(T row);
+
+		public abstract Object setValue(T row, Object value);
+
+		public boolean isEditable() {
+			return editable;
+		}
+
+		public void setEditable(boolean editable) {
+			this.editable = editable;
+		}
+	}
+
+	protected static class FieldColumn<T> extends ObjectColumn<T> {
+
+		public FieldColumn(Column column, Field f) {
+			super(column);
+			setType(f.getType());
+		}
+
+		@Override
+		public Object getValue(T row) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public Object setValue(T row, Object value) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+	}
+
+	protected static class MethodColumn<T> extends ObjectColumn<T> {
+
+		public MethodColumn(Column column, Method m) {
+			super(column);
+			setType(m.getReturnType());
+		}
+
+		@Override
+		public Object getValue(T row) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public Object setValue(T row, Object value) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
 	}
 }

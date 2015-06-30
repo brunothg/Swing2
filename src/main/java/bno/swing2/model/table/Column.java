@@ -16,7 +16,7 @@ public @interface Column {
 	 */
 	public String value();
 
-	// public boolean editable() default false;
+	public boolean editable() default false;
 
 	/**
 	 * The column position. Default behavior will use the order of the
