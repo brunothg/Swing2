@@ -30,7 +30,20 @@ public @interface Column {
 	 * Set the method used for setting values for this column. If this
 	 * annotation is at a field the default behavior directly manipulates the
 	 * field. If it is a method the setter is needed or the column can't be
-	 * editable.
+	 * editable.<br>
+	 * The method signature of the setter must be compatible to
+	 * .&lt;setter&gt;(Class&lt;[returnType|fieldType]&gt;);<br>
+	 * For example:<br>
+	 * <code><pre>
+	 * 	&#64;Column(value="Age", editable=true, setter="setAge")
+	 * 	public int getAge(){ 
+	 * 		return age;
+	 * 	} 
+	 * 
+	 * 	public void setAge(int age){
+	 * 		this.age = age;
+	 * 	}
+	 * </pre></code>
 	 * 
 	 * @return The setter method
 	 */
