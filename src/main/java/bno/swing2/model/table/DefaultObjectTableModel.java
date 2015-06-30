@@ -10,6 +10,8 @@ import java.util.Vector;
 
 import javax.swing.table.AbstractTableModel;
 
+import bno.swing2.utils.ClassUtils;
+
 public class DefaultObjectTableModel<T> extends AbstractTableModel {
 
 	private static final long serialVersionUID = 1L;
@@ -262,8 +264,7 @@ public class DefaultObjectTableModel<T> extends AbstractTableModel {
 					continue;
 				}
 
-				if (parameters[0].isInstance(type)
-						|| parameters[0].equals(type)) {
+				if (ClassUtils.isAssignable(parameters[0], type)) {
 
 					return method;
 				}
