@@ -16,6 +16,12 @@ public class MapBuilder<K, V> {
 		return this;
 	}
 
+	public MapBuilder<K, V> put(Map<? extends K, ? extends V> m) {
+
+		map.putAll(m);
+		return this;
+	}
+
 	public Map<K, V> build() {
 
 		return map;
