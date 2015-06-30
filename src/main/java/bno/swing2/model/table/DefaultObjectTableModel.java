@@ -4,6 +4,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Vector;
@@ -41,10 +42,9 @@ public class DefaultObjectTableModel<T> extends AbstractTableModel {
 					Column _column = (Column) annotation;
 					ObjectColumn<T> column = new FieldColumn<T>(_column, type,
 							field);
-					if (_column.index() < 0) {
-						columns.add(column);
-					} else {
-						columns.add(_column.index(), column);
+					columns.add(column);
+					if (_column.index() >= 0) {
+						column.setIndex(_column.index());
 					}
 				}
 			}
@@ -58,15 +58,15 @@ public class DefaultObjectTableModel<T> extends AbstractTableModel {
 					Column _column = (Column) annotation;
 					ObjectColumn<T> column = new MethodColumn<T>(_column, type,
 							method);
-					if (_column.index() < 0) {
-						columns.add(column);
-					} else {
-						columns.add(_column.index(), column);
+					columns.add(column);
+					if (_column.index() >= 0) {
+						column.setIndex(_column.index());
 					}
 				}
 			}
 		}
 
+		Collections.sort(columns);
 		this.columns = columns.toArray(new ObjectColumn[columns.size()]);
 	}
 
@@ -228,10 +228,12 @@ public class DefaultObjectTableModel<T> extends AbstractTableModel {
 		return removed;
 	}
 
-	protected static abstract class ObjectColumn<V> {
+	protected static abstract class ObjectColumn<V> implements
+			Comparable<ObjectColumn<?>> {
 
 		private Class<?> self;
 
+		private int index;
 		private String name;
 		private Class<?> type;
 		private boolean editable;
@@ -305,13 +307,6 @@ public class DefaultObjectTableModel<T> extends AbstractTableModel {
 			this.self = self;
 		}
 
-		public abstract Object getValue(V row) throws IllegalArgumentException,
-				IllegalAccessException, InvocationTargetException;
-
-		public abstract void setValue(V row, Object value)
-				throws IllegalArgumentException, IllegalAccessException,
-				InvocationTargetException;
-
 		public Method getSetter() {
 			return setter;
 		}
@@ -319,6 +314,28 @@ public class DefaultObjectTableModel<T> extends AbstractTableModel {
 		public void setSetter(Method setter) {
 			this.setter = setter;
 		}
+
+		public int getIndex() {
+			return index;
+		}
+
+		public void setIndex(int index) {
+			this.index = index;
+		}
+
+		@Override
+		public int compareTo(ObjectColumn<?> comp) {
+
+			return new Integer(getIndex()).compareTo(new Integer(comp
+					.getIndex()));
+		}
+
+		public abstract Object getValue(V row) throws IllegalArgumentException,
+				IllegalAccessException, InvocationTargetException;
+
+		public abstract void setValue(V row, Object value)
+				throws IllegalArgumentException, IllegalAccessException,
+				InvocationTargetException;
 
 	}
 
