@@ -71,7 +71,11 @@ public class DefaultObjectTableModel<T> extends AbstractTableModel {
 		return columns[columnIndex];
 	}
 
-	@Override
+	/**
+	 * Returns the value given by the {@link Column} Annotation.
+	 * 
+	 * @see Column#value()
+	 */
 	public String getColumnName(int columnIndex) {
 
 		return getColumn(columnIndex).getName();
@@ -89,13 +93,20 @@ public class DefaultObjectTableModel<T> extends AbstractTableModel {
 		return columns.length;
 	}
 
-	@Override
+	/**
+	 * Returns the value given by the {@link Column} Annotation.
+	 * 
+	 * @see Column#editable()
+	 */
 	public boolean isCellEditable(int rowIndex, int columnIndex) {
-		// TODO isCellEditable
-		return false;
+
+		return getColumn(columnIndex).isEditable();
 	}
 
-	@Override
+	/**
+	 * Returns the type of the annotated field or the return type of the
+	 * annotated method.
+	 */
 	public Class<?> getColumnClass(int columnIndex) {
 
 		return getColumn(columnIndex).getType();
@@ -103,13 +114,17 @@ public class DefaultObjectTableModel<T> extends AbstractTableModel {
 
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
-		// TODO getValueAt
-		return null;
+
+		return getColumn(columnIndex).getValue(rows.get(rowIndex));
 	}
 
-	@Override
+	/**
+	 * Sets the annotated field value
+	 */
 	public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-		// TODO setValueAt
+
+		getColumn(columnIndex).setValue(rows.get(rowIndex), aValue);
+		fireTableCellUpdated(rowIndex, columnIndex);
 	}
 
 	/**
