@@ -5,6 +5,8 @@ import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 
 public class ObjectTableTest {
 
@@ -16,7 +18,7 @@ public class ObjectTableTest {
 		disp.setSize(800, 600);
 		disp.setLayout(new BorderLayout());
 
-		DefaultObjectTableModel<MyObject> tm = new DefaultObjectTableModel<MyObject>(
+		final DefaultObjectTableModel<MyObject> tm = new DefaultObjectTableModel<MyObject>(
 				MyObject.class);
 		JTable table = new JTable(tm);
 		table.setAutoCreateRowSorter(true);
@@ -27,6 +29,20 @@ public class ObjectTableTest {
 			tm.addRow(new MyObject("Prename " + i, "Name " + i, i + 1));
 		}
 
+		tm.addTableModelListener(new TableModelListener() {
+
+			@Override
+			public void tableChanged(TableModelEvent e) {
+
+				System.out.println("Table changed:");
+				for (int i = 0; i < tm.getRowCount(); i++) {
+
+					System.out.println("\t\t" + tm.getRow(i).toString());
+				}
+				System.out.println("\n");
+			}
+		});
+
 		disp.setVisible(true);
 	}
 
@@ -35,18 +51,17 @@ public class ObjectTableTest {
 		@Column(value = "Prename", editable = true)
 		String prename;
 
-		@Column(value = "Name", index = 0)
-		String name;
+		private String name;
 
 		int age;
 
 		public MyObject(String prename, String name, int age) {
 			this.prename = prename;
-			this.name = name;
+			this.setName(name);
 			this.age = age;
 		}
 
-		@Column(value = "Age", setter = "setAge", editable = true)
+		@Column(value = "Age")
 		int getAge() {
 
 			return age;
@@ -56,5 +71,20 @@ public class ObjectTableTest {
 
 			this.age = age;
 		}
+
+		@Column(value = "Name", index = 0, setter = "setName", editable = true)
+		String getName() {
+			return name;
+		}
+
+		void setName(String name) {
+			this.name = name;
+		}
+
+		public String toString() {
+
+			return String.format("%s, %s - %d", prename, getName(), age);
+		}
+
 	}
 }

@@ -31,7 +31,9 @@ public @interface Column {
 	 * annotation is at a field the default behavior directly manipulates the
 	 * field. If it is a method the setter is needed or the column can't be
 	 * editable.<br>
-	 * The method signature of the setter must be compatible to
+	 * The setter method must be declared in the class, where the annotation is
+	 * put.<br>
+	 * Also the method signature of the setter must be compatible to
 	 * .&lt;setter&gt;(Class&lt;[returnType|fieldType]&gt;);<br>
 	 * For example:<br>
 	 * <code><pre>

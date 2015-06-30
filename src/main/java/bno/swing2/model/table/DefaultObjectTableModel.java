@@ -246,7 +246,29 @@ public class DefaultObjectTableModel<T> extends AbstractTableModel {
 		protected static Method findSetter(String name, Class<?> type,
 				Class<?> self) {
 
-			// TODO findSetter
+			if (name == null || name.trim().isEmpty()) {
+				return null;
+			}
+
+			Method[] methods = self.getDeclaredMethods();
+			for (Method method : methods) {
+
+				if (!method.getName().equals(name)) {
+					continue;
+				}
+
+				Class<?>[] parameters = method.getParameterTypes();
+				if (parameters.length != 1) {
+					continue;
+				}
+
+				if (parameters[0].isInstance(type)
+						|| parameters[0].equals(type)) {
+
+					return method;
+				}
+			}
+
 			return null;
 		}
 
