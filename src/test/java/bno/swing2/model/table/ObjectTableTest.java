@@ -18,15 +18,39 @@ public class ObjectTableTest {
 		disp.setSize(800, 600);
 		disp.setLayout(new BorderLayout());
 
+		// Now
 		final DefaultObjectTableModel<MyObject> tm = new DefaultObjectTableModel<MyObject>(
 				MyObject.class);
+		// Before
+		/*
+		 * new DefaultTableModel(new Object[][] {}, new String[] { "Prename",
+		 * "Name", "Age" }) { private static final long serialVersionUID = 1L;
+		 * 
+		 * Class<?>[] columnTypes = new Class[] { String.class, String.class,
+		 * int.class };
+		 * 
+		 * public Class<?> getColumnClass(int columnIndex) { return
+		 * columnTypes[columnIndex]; }
+		 * 
+		 * boolean[] columnEditables = new boolean[] { true, true, false };
+		 * 
+		 * public boolean isCellEditable(int row, int column) { return
+		 * columnEditables[column]; } };
+		 */
+
 		JTable table = new JTable(tm);
 		table.setAutoCreateRowSorter(true);
 		disp.add(new JScrollPane(table), BorderLayout.CENTER);
 
 		for (int i = 0; i < 20; i++) {
 
+			// Now
 			tm.addRow(new MyObject("Prename " + i, "Name " + i, i + 1));
+			// Before
+			/*
+			 * DefaultTableModel.addRow(new Object[]{obj.getPrename(),
+			 * obj.getName(), obj.getAge()});
+			 */
 		}
 
 		tm.addTableModelListener(new TableModelListener() {
