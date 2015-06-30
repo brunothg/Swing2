@@ -2,6 +2,7 @@ package bno.swing2.model.table;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.LinkedList;
 import java.util.List;
@@ -115,7 +116,13 @@ public class DefaultObjectTableModel<T> extends AbstractTableModel {
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 
-		return getColumn(columnIndex).getValue(rows.get(rowIndex));
+		try {
+
+			return getColumn(columnIndex).getValue(rows.get(rowIndex));
+		} catch (IllegalArgumentException | InvocationTargetException
+				| IllegalAccessException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	/**
@@ -235,7 +242,8 @@ public class DefaultObjectTableModel<T> extends AbstractTableModel {
 			this.type = type;
 		}
 
-		public abstract Object getValue(T row);
+		public abstract Object getValue(T row) throws IllegalArgumentException,
+				IllegalAccessException, InvocationTargetException;
 
 		public abstract Object setValue(T row, Object value);
 
@@ -250,15 +258,20 @@ public class DefaultObjectTableModel<T> extends AbstractTableModel {
 
 	protected static class FieldColumn<T> extends ObjectColumn<T> {
 
+		private Field f;
+
 		public FieldColumn(Column column, Field f) {
 			super(column);
+			this.f = f;
 			setType(f.getType());
 		}
 
 		@Override
-		public Object getValue(T row) {
-			// TODO Auto-generated method stub
-			return null;
+		public Object getValue(T row) throws IllegalArgumentException,
+				IllegalAccessException {
+
+			f.setAccessible(true);
+			return f.get(row);
 		}
 
 		@Override
@@ -271,15 +284,20 @@ public class DefaultObjectTableModel<T> extends AbstractTableModel {
 
 	protected static class MethodColumn<T> extends ObjectColumn<T> {
 
+		private Method m;
+
 		public MethodColumn(Column column, Method m) {
 			super(column);
+			this.m = m;
 			setType(m.getReturnType());
 		}
 
 		@Override
-		public Object getValue(T row) {
-			// TODO Auto-generated method stub
-			return null;
+		public Object getValue(T row) throws IllegalAccessException,
+				IllegalArgumentException, InvocationTargetException {
+
+			m.setAccessible(true);
+			return m.invoke(row);
 		}
 
 		@Override

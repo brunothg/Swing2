@@ -19,6 +19,7 @@ public class ObjectTableTest {
 		DefaultObjectTableModel<MyObject> tm = new DefaultObjectTableModel<MyObject>(
 				MyObject.class);
 		JTable table = new JTable(tm);
+		table.setAutoCreateRowSorter(true);
 		disp.add(new JScrollPane(table), BorderLayout.CENTER);
 
 		for (int i = 0; i < 20; i++) {
