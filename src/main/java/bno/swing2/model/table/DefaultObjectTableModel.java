@@ -106,30 +106,78 @@ public class DefaultObjectTableModel<T> extends AbstractTableModel {
 		// TODO setValueAt
 	}
 
+	/**
+	 * Add a new row to the table model
+	 * 
+	 * @param object
+	 *            The object, that represents the new row
+	 */
 	public void addRow(T object) {
 
 		addRow(-1, object);
 	}
 
+	/**
+	 * Add a new row at specific position to the table model. The element at
+	 * this position (and the ones behind) will be shift to the right.
+	 * 
+	 * @param rowIndex
+	 *            The index for the new row.
+	 * @param object
+	 *            The object, that represents the new row
+	 */
 	public void addRow(int rowIndex, T object) {
 
 		if (rowIndex < 0) {
+			rowIndex = rows.size();
 			rows.add(object);
 		} else {
 			rows.add(rowIndex, object);
 		}
+
+		fireTableRowsInserted(rowIndex, rowIndex);
 	}
 
+	/**
+	 * Get the row object at a specific position.
+	 * 
+	 * @param rowIndex
+	 *            The index of the row
+	 * @return The object for the row
+	 */
 	public T getRow(int rowIndex) {
 
 		return rows.get(rowIndex);
 	}
 
-	public void removeRow(T object) {
+	/**
+	 * Search for the object (using equals method) and then delete it. Return
+	 * null if it could not be found. Otherwise the row object is returned.
+	 * 
+	 * @param object
+	 *            The object, that should be deleted
+	 * @return Null or the row object
+	 */
+	public T removeRow(T object) {
 
-		rows.remove(object);
+		for (int i = 0; i < rows.size(); i++) {
+
+			if (rows.get(i).equals(object)) {
+
+				return removeRow(i);
+			}
+		}
+
+		return null;
 	}
 
+	/**
+	 * Removes a row by its index.
+	 * 
+	 * @param rowIndex
+	 *            The index of the row
+	 * @return The row object that was deleted
+	 */
 	public T removeRow(int rowIndex) {
 
 		return rows.remove(rowIndex);
