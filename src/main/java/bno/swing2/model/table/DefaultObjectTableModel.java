@@ -112,21 +112,26 @@ public class DefaultObjectTableModel<T> extends AbstractTableModel {
 	}
 
 	public void addRow(int rowIndex, T object) {
-		// TODO addRow
+
+		if (rowIndex < 0) {
+			rows.add(object);
+		} else {
+			rows.add(rowIndex, object);
+		}
 	}
 
 	public T getRow(int rowIndex) {
-		// TODO getRow
-		return null;
+
+		return rows.get(rowIndex);
 	}
 
-	public T removeRow(T object) {
-		// TODO removeRow
-		return null;
+	public void removeRow(T object) {
+
+		rows.remove(object);
 	}
 
 	public T removeRow(int rowIndex) {
-		// TODO removeRow
-		return null;
+
+		return rows.remove(rowIndex);
 	}
 }
