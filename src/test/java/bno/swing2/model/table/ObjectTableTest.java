@@ -32,18 +32,28 @@ public class ObjectTableTest {
 
 	static class MyObject {
 
-		@Column("Prename")
+		@Column(value = "Prename", editable = true)
 		String prename;
 
 		@Column(value = "Name", index = 0)
 		String name;
 
-		@Column("Age")
 		int age;
 
 		public MyObject(String prename, String name, int age) {
 			this.prename = prename;
 			this.name = name;
+			this.age = age;
+		}
+
+		@Column(value = "Age", setter = "setAge", editable = true)
+		int getAge() {
+
+			return age;
+		}
+
+		void setAge(int age) {
+
 			this.age = age;
 		}
 	}

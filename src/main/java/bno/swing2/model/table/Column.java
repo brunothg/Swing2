@@ -25,4 +25,14 @@ public @interface Column {
 	 * @return The position for the column
 	 */
 	public int index() default -1;
+
+	/**
+	 * Set the method used for setting values for this column. If this
+	 * annotation is at a field the default behavior directly manipulates the
+	 * field. If it is a method the setter is needed or the column can't be
+	 * editable.
+	 * 
+	 * @return The setter method
+	 */
+	public String setter() default "";
 }

@@ -37,7 +37,8 @@ public class DefaultObjectTableModel<T> extends AbstractTableModel {
 			for (Annotation annotation : field.getDeclaredAnnotations()) {
 				if (annotation instanceof Column) {
 					Column _column = (Column) annotation;
-					ObjectColumn<T> column = new FieldColumn<T>(_column, field);
+					ObjectColumn<T> column = new FieldColumn<T>(_column, type,
+							field);
 					if (_column.index() < 0) {
 						columns.add(column);
 					} else {
@@ -53,7 +54,7 @@ public class DefaultObjectTableModel<T> extends AbstractTableModel {
 			for (Annotation annotation : method.getDeclaredAnnotations()) {
 				if (annotation instanceof Column) {
 					Column _column = (Column) annotation;
-					ObjectColumn<T> column = new MethodColumn<T>(_column,
+					ObjectColumn<T> column = new MethodColumn<T>(_column, type,
 							method);
 					if (_column.index() < 0) {
 						columns.add(column);
@@ -127,10 +128,21 @@ public class DefaultObjectTableModel<T> extends AbstractTableModel {
 
 	/**
 	 * Sets the annotated field value
+	 * 
+	 * @see #getValueAt(int, int)
+	 * @throws RuntimeException
+	 *             if there are problems with the access through reflection
 	 */
 	public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
 
-		getColumn(columnIndex).setValue(rows.get(rowIndex), aValue);
+		try {
+			getColumn(columnIndex).setValue(rows.get(rowIndex), aValue);
+		} catch (IllegalArgumentException | InvocationTargetException
+				| IllegalAccessException e) {
+
+			throw new RuntimeException(e);
+		}
+
 		fireTableCellUpdated(rowIndex, columnIndex);
 	}
 
@@ -214,16 +226,28 @@ public class DefaultObjectTableModel<T> extends AbstractTableModel {
 		return removed;
 	}
 
-	protected static abstract class ObjectColumn<T> {
+	protected static abstract class ObjectColumn<V> {
+
+		private Class<?> self;
 
 		private String name;
 		private Class<?> type;
 		private boolean editable;
 
-		public ObjectColumn(Column column) {
+		private Method setter;
 
+		public ObjectColumn(Column column, Class<?> self) {
+
+			this.setSelf(self);
 			this.name = column.value();
 			this.editable = column.editable();
+		}
+
+		protected static Method findSetter(String name, Class<?> type,
+				Class<?> self) {
+
+			// TODO findSetter
+			return null;
 		}
 
 		public String getName() {
@@ -242,11 +266,6 @@ public class DefaultObjectTableModel<T> extends AbstractTableModel {
 			this.type = type;
 		}
 
-		public abstract Object getValue(T row) throws IllegalArgumentException,
-				IllegalAccessException, InvocationTargetException;
-
-		public abstract Object setValue(T row, Object value);
-
 		public boolean isEditable() {
 			return editable;
 		}
@@ -254,56 +273,134 @@ public class DefaultObjectTableModel<T> extends AbstractTableModel {
 		public void setEditable(boolean editable) {
 			this.editable = editable;
 		}
+
+		public Class<?> getSelf() {
+			return self;
+		}
+
+		public void setSelf(Class<?> self) {
+			this.self = self;
+		}
+
+		public abstract Object getValue(V row) throws IllegalArgumentException,
+				IllegalAccessException, InvocationTargetException;
+
+		public abstract void setValue(V row, Object value)
+				throws IllegalArgumentException, IllegalAccessException,
+				InvocationTargetException;
+
+		public Method getSetter() {
+			return setter;
+		}
+
+		public void setSetter(Method setter) {
+			this.setter = setter;
+		}
+
 	}
 
-	protected static class FieldColumn<T> extends ObjectColumn<T> {
+	protected static class FieldColumn<V> extends ObjectColumn<V> {
 
 		private Field f;
 
-		public FieldColumn(Column column, Field f) {
-			super(column);
+		public FieldColumn(Column column, Class<?> self, Field f) {
+			super(column, self);
 			this.f = f;
 			setType(f.getType());
+			setSetter(ObjectColumn.findSetter(column.setter(), getType(),
+					getSelf()));
 		}
 
 		@Override
-		public Object getValue(T row) throws IllegalArgumentException,
+		public Object getValue(V row) throws IllegalArgumentException,
 				IllegalAccessException {
 
-			f.setAccessible(true);
+			try {
+				f.setAccessible(true);
+			} catch (SecurityException e) {
+			}
 			return f.get(row);
 		}
 
 		@Override
-		public Object setValue(T row, Object value) {
-			// TODO Auto-generated method stub
-			return null;
-		}
+		public void setValue(V row, Object value)
+				throws IllegalArgumentException, IllegalAccessException,
+				InvocationTargetException {
 
+			if (getSetter() != null) {
+
+				try {
+					getSetter().setAccessible(true);
+				} catch (SecurityException e) {
+				}
+
+				getSetter().invoke(row, value);
+
+			} else {
+
+				try {
+					f.setAccessible(true);
+				} catch (SecurityException e) {
+				}
+
+				f.set(row, value);
+			}
+		}
 	}
 
-	protected static class MethodColumn<T> extends ObjectColumn<T> {
+	protected static class MethodColumn<V> extends ObjectColumn<V> {
 
 		private Method m;
 
-		public MethodColumn(Column column, Method m) {
-			super(column);
+		public MethodColumn(Column column, Class<?> self, Method m) {
+			super(column, self);
 			this.m = m;
 			setType(m.getReturnType());
+			setSetter(ObjectColumn.findSetter(column.setter(), getType(),
+					getSelf()));
 		}
 
 		@Override
-		public Object getValue(T row) throws IllegalAccessException,
+		public boolean isEditable() {
+
+			if (getSetter() == null) {
+
+				return false;
+			}
+
+			return super.isEditable();
+		}
+
+		@Override
+		public Object getValue(V row) throws IllegalAccessException,
 				IllegalArgumentException, InvocationTargetException {
 
-			m.setAccessible(true);
+			try {
+				m.setAccessible(true);
+			} catch (SecurityException e) {
+			}
 			return m.invoke(row);
 		}
 
 		@Override
-		public Object setValue(T row, Object value) {
-			// TODO Auto-generated method stub
-			return null;
+		public void setValue(V row, Object value)
+				throws IllegalAccessException, IllegalArgumentException,
+				InvocationTargetException {
+
+			if (getSetter() != null) {
+
+				try {
+					getSetter().setAccessible(true);
+				} catch (SecurityException e) {
+				}
+
+				getSetter().invoke(row, value);
+
+			} else {
+
+				throw new IllegalAccessException(
+						"No setter is set for this column");
+			}
 		}
 
 	}
