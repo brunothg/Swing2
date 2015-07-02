@@ -72,7 +72,7 @@ public class ObjectTableTest {
 
 	static class MyObject {
 
-		@Column(value = "Prename", editable = true, index = 0)
+		@Column(value = "Prename", editable = true, index=1)
 		String prename;
 
 		private String name;
@@ -85,7 +85,7 @@ public class ObjectTableTest {
 			this.age = age;
 		}
 
-		@Column(value = "Age", index = 2)
+		@Column(value = "Age",index=2)
 		int getAge() {
 
 			return age;
@@ -96,7 +96,7 @@ public class ObjectTableTest {
 			this.age = age;
 		}
 
-		@Column(value = "Name", index = 1, setter = "setName", editable = true)
+		@Column(value = "Name", index = 0, setter = "setName", editable = true)
 		String getName() {
 			return name;
 		}

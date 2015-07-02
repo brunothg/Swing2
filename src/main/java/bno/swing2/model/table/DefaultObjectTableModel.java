@@ -85,6 +85,19 @@ public class DefaultObjectTableModel<T> extends AbstractTableModel {
 		return getColumn(columnIndex).getName();
 	}
 
+	/**
+	 * Override the columnName grabbed from the {@link Column} annotation
+	 * 
+	 * @param columnIndex
+	 *            The column to change
+	 * @param columnName
+	 *            The new column name
+	 */
+	public void setColumnName(int columnIndex, String columnName) {
+
+		getColumn(columnIndex).setName(columnName);
+	}
+
 	@Override
 	public int getRowCount() {
 
