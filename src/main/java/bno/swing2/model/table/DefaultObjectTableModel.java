@@ -170,6 +170,11 @@ public class DefaultObjectTableModel<T> extends AbstractTableModel {
 	 */
 	public void addRow(int rowIndex, T object) {
 
+		if (object == null) {
+
+			throw new NullPointerException("No null values allowed");
+		}
+
 		if (rowIndex < 0) {
 			rowIndex = rows.size();
 			rows.add(object);
