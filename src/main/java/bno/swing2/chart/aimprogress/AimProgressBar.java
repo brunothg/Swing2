@@ -87,6 +87,7 @@ public class AimProgressBar extends JProgressBar {
 
 			valueBorder = (int) (xMiddle * 0.2);
 		}
+		valueBorder = Math.max(1, valueBorder);
 
 		Color actualColor = Color.YELLOW;
 
