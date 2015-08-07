@@ -15,6 +15,8 @@ public class ApplicationTab extends JPanel {
 	private boolean closable = true;
 	private ClosableTabComponent tabComponent;
 
+	private String name = "";
+
 	/**
 	 * Closes this tab. If {@link #setTabComponent(ClosableTabComponent)} was
 	 * not called, the tab can not be closed an a {@link NotClosableException}
@@ -40,11 +42,14 @@ public class ApplicationTab extends JPanel {
 	 */
 	public String getTitle() {
 
-		return Null.nvl(tabComponent.getTitle(), getName());
+		return Null.nvl(name, getName());
 	}
 
 	public void setTitle(String title) {
-		tabComponent.setTitle(Null.nvl(title, getName()));
+		name = (Null.nvl(title, getName()));
+		if (tabComponent != null) {
+			tabComponent.setTitle(name);
+		}
 	}
 
 	/**
@@ -71,6 +76,7 @@ public class ApplicationTab extends JPanel {
 	public void setTabComponent(ClosableTabComponent tabComponent) {
 		this.tabComponent = tabComponent;
 		tabComponent.setClosable(isClosable());
+		tabComponent.setTitle(getTitle());
 	}
 
 }
