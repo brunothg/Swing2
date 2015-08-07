@@ -12,7 +12,6 @@ public class ApplicationTab extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
-	private String title;
 	private boolean closable = true;
 	private ClosableTabComponent tabComponent;
 
@@ -41,11 +40,11 @@ public class ApplicationTab extends JPanel {
 	 */
 	public String getTitle() {
 
-		return Null.nvl(title, getName());
+		return Null.nvl(tabComponent.getTitle(), getName());
 	}
 
 	public void setTitle(String title) {
-		this.title = title;
+		tabComponent.setTitle(Null.nvl(title, getName()));
 	}
 
 	/**

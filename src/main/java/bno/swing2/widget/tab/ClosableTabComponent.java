@@ -23,7 +23,8 @@ public class ClosableTabComponent extends JPanel implements ActionListener {
 	private JTabbedPane tabbedPane;
 	private ApplicationTab component;
 
-	public ClosableTabComponent(JTabbedPane tabbedPane, ApplicationTab component) {
+	public ClosableTabComponent(JTabbedPane tabbedPane,
+			ApplicationTab component) {
 
 		this.tabbedPane = tabbedPane;
 		this.component = component;
@@ -52,6 +53,11 @@ public class ClosableTabComponent extends JPanel implements ActionListener {
 	public void setTitle(String title) {
 
 		lblTitle.setText(title);
+	}
+
+	public String getTitle() {
+
+		return lblTitle.getText();
 	}
 
 	public void setClosable(boolean closable) {
