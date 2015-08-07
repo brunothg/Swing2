@@ -109,8 +109,8 @@ public class ExceptionDialog extends JDialog implements ActionListener {
 		lblMessage.setHorizontalAlignment(JLabel.LEFT);
 		infoPanel.add(lblMessage, BorderLayout.CENTER);
 
-		JLabel lblExceptionClass = new JLabel(throwable.getClass()
-				.getCanonicalName());
+		JLabel lblExceptionClass = new JLabel(
+				throwable.getClass().getCanonicalName());
 		lblExceptionClass
 				.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 		lblExceptionClass.setVerticalAlignment(JLabel.TOP);
@@ -212,7 +212,8 @@ public class ExceptionDialog extends JDialog implements ActionListener {
 		dialog.setVisible(true);
 	}
 
-	public static void showExceptionDialog(Component owner, Throwable throwable) {
+	public static void showExceptionDialog(Component owner,
+			Throwable throwable) {
 
 		showExceptionDialog(owner, null, throwable.getMessage(), throwable);
 	}
@@ -220,8 +221,10 @@ public class ExceptionDialog extends JDialog implements ActionListener {
 	public static void showExceptionDialog(Component owner, String title,
 			String message, Throwable throwable) {
 
-		showExceptionDialog(SwingUtilities.windowForComponent(owner), title,
-				message, throwable);
+		showExceptionDialog(
+				(owner == null) ? null
+						: SwingUtilities.windowForComponent(owner),
+				title, message, throwable);
 	}
 
 }
