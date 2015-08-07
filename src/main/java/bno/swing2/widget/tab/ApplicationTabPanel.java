@@ -2,6 +2,7 @@ package bno.swing2.widget.tab;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.event.ContainerListener;
 
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
@@ -27,8 +28,17 @@ public class ApplicationTabPanel extends JPanel {
 
 		setLayout(new BorderLayout());
 
-		tpInfo = new JTabbedPane(JTabbedPane.TOP, JTabbedPane.SCROLL_TAB_LAYOUT);
+		tpInfo = new JTabbedPane(JTabbedPane.TOP,
+				JTabbedPane.SCROLL_TAB_LAYOUT);
 		add(tpInfo, BorderLayout.CENTER);
+	}
+
+	public void addTabContainerListener(ContainerListener l) {
+		tpInfo.addContainerListener(l);
+	}
+
+	public void removeTabContainerListener(ContainerListener l) {
+		tpInfo.removeContainerListener(l);
 	}
 
 	public void openTab(ApplicationTab tab, boolean active) {
