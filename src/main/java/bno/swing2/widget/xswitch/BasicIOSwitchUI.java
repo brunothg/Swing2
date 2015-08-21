@@ -14,7 +14,6 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.Icon;
 import javax.swing.JComponent;
-import javax.swing.plaf.ComponentUI;
 
 import bno.swing2.BColor;
 import bno.swing2.utils.IconUtils;
@@ -291,16 +290,5 @@ public class BasicIOSwitchUI extends IOSwitchUI {
 	@Override
 	public void uninstallUI(JComponent c) {
 		uninstallUI((BIOSwitch) c);
-	}
-
-	private static BasicIOSwitchUI ui;
-
-	public static ComponentUI createUI(JComponent c) {
-
-		if (ui == null) {
-			ui = new BasicIOSwitchUI();
-		}
-
-		return ui;
 	}
 }
