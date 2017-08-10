@@ -1,4 +1,4 @@
-package com.github.brunothg.swing2;
+package com.github.brunothg.swing2.common;
 
 import java.awt.Color;
 

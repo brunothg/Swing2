@@ -2,7 +2,7 @@ package com.github.brunothg.swing2.widget.colorchooser;
 
 import java.awt.Component;
 
-import com.github.brunothg.swing2.BColor;
+import com.github.brunothg.swing2.common.BColor;
 
 public class ColorChangeEvent {
 

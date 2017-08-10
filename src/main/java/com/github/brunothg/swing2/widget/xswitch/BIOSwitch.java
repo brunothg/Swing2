@@ -10,7 +10,7 @@ import javax.swing.JCheckBox;
 import javax.swing.UIManager;
 import javax.swing.border.Border;
 
-import com.github.brunothg.swing2.BColor;
+import com.github.brunothg.swing2.common.BColor;
 
 public class BIOSwitch extends JCheckBox {
 

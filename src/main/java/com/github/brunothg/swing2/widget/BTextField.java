@@ -9,7 +9,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-import com.github.brunothg.swing2.BColor;
+import com.github.brunothg.swing2.common.BColor;
 
 /**
  * A text field that can show a hint inside the text field itself (Like

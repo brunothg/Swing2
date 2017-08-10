@@ -15,7 +15,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.Icon;
 import javax.swing.JComponent;
 
-import com.github.brunothg.swing2.BColor;
+import com.github.brunothg.swing2.common.BColor;
 import com.github.brunothg.swing2.utils.IconUtils;
 
 public class BasicIOSwitchUI extends IOSwitchUI {

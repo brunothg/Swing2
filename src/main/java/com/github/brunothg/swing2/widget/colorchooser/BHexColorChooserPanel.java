@@ -7,7 +7,7 @@ import java.awt.event.KeyEvent;
 import javax.swing.Icon;
 import javax.swing.colorchooser.AbstractColorChooserPanel;
 
-import com.github.brunothg.swing2.BColor;
+import com.github.brunothg.swing2.common.BColor;
 import com.github.brunothg.swing2.widget.colorchooser.gradient.BGradientColorChooserWidget;
 import com.github.brunothg.swing2.widget.colorchooser.hexcolorchooser.BHexColorChooserWidget;
 

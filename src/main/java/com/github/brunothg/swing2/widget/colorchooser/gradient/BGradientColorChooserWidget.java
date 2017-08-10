@@ -3,7 +3,7 @@ package com.github.brunothg.swing2.widget.colorchooser.gradient;
 import javax.swing.JComponent;
 import javax.swing.UIManager;
 
-import com.github.brunothg.swing2.BColor;
+import com.github.brunothg.swing2.common.BColor;
 import com.github.brunothg.swing2.widget.colorchooser.ColorChangeEvent;
 import com.github.brunothg.swing2.widget.colorchooser.ColorChangeListener;
 
