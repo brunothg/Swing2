@@ -36,7 +36,7 @@ import com.github.brunothg.swing2.common.BColor;
 
 public class BColorChooser extends JColorChooser {
 
-	private static final long serialVersionUID = 2889510211457614799L;
+	private static final long serialVersionUID = 1L;
 
 	public BColorChooser() {
 		super();
@@ -66,8 +66,8 @@ public class BColorChooser extends JColorChooser {
 
 		panels.add(0, new BHexColorChooserPanel());
 
-		setChooserPanels(panels.toArray(new AbstractColorChooserPanel[panels
-				.size()]));
+		setChooserPanels(
+				panels.toArray(new AbstractColorChooserPanel[panels.size()]));
 	}
 
 	/**
@@ -81,12 +81,13 @@ public class BColorChooser extends JColorChooser {
 	 *            the initial Color set when the color-chooser is shown
 	 * @return the selected color or null if the user opted out
 	 * @throws HeadlessException
+	 *             if GraphicsEnvironment.isHeadless() returns true
 	 */
 	public static Color showDialog(Component component, String title,
 			Color initialColor) throws HeadlessException {
 
-		final BColorChooser pane = new BColorChooser(new BColor(
-				initialColor != null ? initialColor : Color.WHITE));
+		final BColorChooser pane = new BColorChooser(
+				new BColor(initialColor != null ? initialColor : Color.WHITE));
 
 		ColorTracker ok = new ColorTracker(pane);
 		JDialog dialog = createDialog(component, title, true, pane, ok, null);
@@ -117,10 +118,9 @@ public class BColorChooser extends JColorChooser {
 	 * @exception HeadlessException
 	 *                if GraphicsEnvironment.isHeadless() returns true.
 	 */
-	public static JDialog createDialog(Component c, String title,
-			boolean modal, final JColorChooser chooserPane,
-			ActionListener okListener, ActionListener cancelListener)
-			throws HeadlessException {
+	public static JDialog createDialog(Component c, String title, boolean modal,
+			final JColorChooser chooserPane, ActionListener okListener,
+			ActionListener cancelListener) throws HeadlessException {
 
 		final Color initialColor = chooserPane.getColor();
 

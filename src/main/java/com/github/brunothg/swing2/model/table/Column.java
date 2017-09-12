@@ -36,16 +36,17 @@ public @interface Column {
 	 * Also the method signature of the setter must be compatible to
 	 * .&lt;setter&gt;(Class&lt;[returnType|fieldType]&gt;);<br>
 	 * For example:<br>
-	 * <code><pre>
-	 * 	&#64;Column(value="Age", editable=true, setter="setAge")
-	 * 	public int getAge(){ 
-	 * 		return age;
-	 * 	} 
 	 * 
-	 * 	public void setAge(int age){
-	 * 		this.age = age;
-	 * 	}
-	 * </pre></code>
+	 * <pre>
+	 * &#64;Column(value = "Age", editable = true, setter = "setAge")
+	 * public int getAge() {
+	 * 	return age;
+	 * }
+	 * 
+	 * public void setAge(int age) {
+	 * 	this.age = age;
+	 * }
+	 * </pre>
 	 * 
 	 * @return The setter method
 	 */

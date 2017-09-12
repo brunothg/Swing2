@@ -228,7 +228,7 @@ public class BLink extends JLabel {
 	/**
 	 * Change the Color of the Link in his visited state.
 	 * 
-	 * @param normalColor
+	 * @param visitedColor
 	 *            Color of the link in visited state.
 	 */
 	public void setVisitedColor(Color visitedColor) {
@@ -243,7 +243,7 @@ public class BLink extends JLabel {
 	/**
 	 * Change the Color of the Link in his over state.
 	 * 
-	 * @param normalColor
+	 * @param overColor
 	 *            Color of the link in over state.
 	 */
 	public void setOverColor(Color overColor) {

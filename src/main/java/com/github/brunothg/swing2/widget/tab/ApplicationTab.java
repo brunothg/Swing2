@@ -22,6 +22,9 @@ public class ApplicationTab extends JPanel {
 	 * not called, the tab can not be closed an a {@link NotClosableException}
 	 * will be thrown. If {@link #isClosable()} results in false value, this
 	 * call will fail either.
+	 * 
+	 * @throws NotClosableException
+	 *             if the tab cannot be closed
 	 */
 	public void closeTab() throws NotClosableException {
 
@@ -39,12 +42,20 @@ public class ApplicationTab extends JPanel {
 
 	/**
 	 * The title of the tab or {@link #getName()}
+	 * 
+	 * @return The title of the tab
 	 */
 	public String getTitle() {
 
 		return Null.nvl(name, getName());
 	}
 
+	/**
+	 * Set the title of the tab
+	 * 
+	 * @param title
+	 *            The new title
+	 */
 	public void setTitle(String title) {
 		name = (Null.nvl(title, getName()));
 		if (tabComponent != null) {
@@ -54,6 +65,8 @@ public class ApplicationTab extends JPanel {
 
 	/**
 	 * Check if this tab is closable
+	 * 
+	 * @return true, if this tab can be closed
 	 */
 	public boolean isClosable() {
 

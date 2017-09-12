@@ -11,6 +11,17 @@ import com.github.brunothg.swing2.widget.tab.ClosableTabComponent;
 
 public class TabUtils {
 
+	/**
+	 * Get all tabs of specific type
+	 * 
+	 * @param type
+	 *            Class type of tab
+	 * @param tp
+	 *            {@link JTabbedPane} used for searching
+	 * @param <T>
+	 *            Class type of tab
+	 * @return null or found tab
+	 */
 	@SuppressWarnings("unchecked")
 	public static <T> List<T> getTabs(Class<T> type, JTabbedPane tp) {
 
@@ -30,8 +41,12 @@ public class TabUtils {
 	}
 
 	/**
-	 * active = true
+	 * Open new tab for {@link JTabbedPane} and activate the tab.
 	 *
+	 * @param tab
+	 *            Tab to open
+	 * @param tp
+	 *            tab container
 	 * @see #openNewTab(ApplicationTab, JTabbedPane, boolean)
 	 */
 	public static void openNewTab(ApplicationTab tab, JTabbedPane tp) {
@@ -42,6 +57,11 @@ public class TabUtils {
 	/**
 	 * Open new Tab for {@link JTabbedPane}.
 	 * 
+	 * @param tab
+	 *            Tab to open
+	 * 
+	 * @param tp
+	 *            tab container
 	 * @param active
 	 *            Tells, if the new tab should be the active one
 	 */

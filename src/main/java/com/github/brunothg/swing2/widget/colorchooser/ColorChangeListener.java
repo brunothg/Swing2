@@ -5,21 +5,19 @@ import java.util.EventListener;
 public interface ColorChangeListener extends EventListener {
 
 	/**
+	 * Selected color has changed.
 	 * 
-	 * 
-	 * @param newColor
-	 *            Color that will be the new selected color
-	 * @param oldColor
-	 *            Color that was selected before
+	 * @param event
+	 *            The {@link ColorChangeEvent}
 	 */
 	public void selectedColorChanged(ColorChangeEvent event);
 
 	/**
+	 * Targeted color changed. The color currently under the mouse cursor
+	 * changed.
 	 * 
-	 * @param newColor
-	 *            Color that will be the new mouse over color
-	 * @param oldColor
-	 *            Color that was mouse over color before
+	 * @param event
+	 *            The {@link ColorChangeEvent}
 	 */
 	public void mouseOverColorChanged(ColorChangeEvent event);
 

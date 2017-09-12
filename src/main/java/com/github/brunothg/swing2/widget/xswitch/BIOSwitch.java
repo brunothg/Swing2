@@ -127,7 +127,8 @@ public class BIOSwitch extends JCheckBox {
 	/**
 	 * Sets the background color for the switch in it's on state
 	 * 
-	 * @param offColor
+	 * @param onColor
+	 *            The color of the on state
 	 */
 	public void setOnColor(Color onColor) {
 		this.onColor = onColor;
@@ -141,6 +142,7 @@ public class BIOSwitch extends JCheckBox {
 	 * Sets the background color for the switch in it's off state
 	 * 
 	 * @param offColor
+	 *            The color of the off state
 	 */
 	public void setOffColor(Color offColor) {
 		this.offColor = offColor;
@@ -160,6 +162,11 @@ public class BIOSwitch extends JCheckBox {
 		setText(onString);
 	}
 
+	/**
+	 * Get the text for the off state
+	 * 
+	 * @return The text for the off state
+	 */
 	public String getOffString() {
 		return (offString == null) ? "" : offString;
 	}
@@ -167,7 +174,7 @@ public class BIOSwitch extends JCheckBox {
 	/**
 	 * Sets the string for the switch in it's off state
 	 * 
-	 * @param onString
+	 * @param offString
 	 *            String to be shown in off state
 	 */
 	public void setOffString(String offString) {

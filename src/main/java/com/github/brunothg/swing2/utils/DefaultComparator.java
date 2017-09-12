@@ -8,6 +8,7 @@ import java.util.Comparator;
  * @author Marvin Bruns
  *
  * @param <T>
+ *            Class Type
  */
 public class DefaultComparator<T> implements Comparator<T> {
 
